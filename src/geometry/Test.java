@@ -103,6 +103,7 @@ public class Test {
 		Donut prvi=new Donut(point5,9,3);
 		Donut drugi=new Donut(point5,4,3);
 		System.out.println(prvi.compareTo(drugi));
+		System.out.println("git bash");
 		
 	}
 
