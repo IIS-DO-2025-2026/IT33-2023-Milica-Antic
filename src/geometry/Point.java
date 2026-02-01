@@ -28,10 +28,10 @@ public class Point extends Shape {
 		this.selected = selected;
 	}
 
-	public double distance(Point udaljenaTacka) {// this.x je x koordinata tacke nad kojim je pozvana metoda distance u
+	public double distance(Point distantPoint) {// this.x je x koordinata tacke nad kojim je pozvana metoda distance u
 													// klasiTest
-		int a = this.x - udaljenaTacka.x;
-		int b = this.y - udaljenaTacka.y;
+		int a = this.x - distantPoint.x;
+		int b = this.y - distantPoint.y;
 		double distance = Math.sqrt(a * a + b * b);
 		return distance;
 	}
@@ -48,8 +48,8 @@ public class Point extends Shape {
 	}
 
 	public boolean contains(int x, int y) {
-		Point tackaKlika = new Point(x, y);
-		return this.distance(tackaKlika) <= 2;
+		Point clickPoint = new Point(x, y);
+		return this.distance(clickPoint) <= 2;
 	}
 
 	// idu dve linije jer ne crtamo tacku nego plus

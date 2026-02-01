@@ -17,14 +17,14 @@ public class Donut extends Circle {
 		this.innerRadius = innerRadius;
 	}
 
-	public Donut(Point centar, int precnik, int innerRadius) {
+	public Donut(Point centar, int radius, int innerRadius) {
 
-		super(centar, precnik);
+		super(centar, radius);
 		this.innerRadius = innerRadius;
 	}
 
-	public Donut(Point centar, int precnik, int innerRadius, boolean selected) {
-		this(centar, precnik, innerRadius);
+	public Donut(Point centar, int radius, int innerRadius, boolean selected) {
+		this(centar, radius, innerRadius);
 
 		this.selected = selected;
 
@@ -41,9 +41,9 @@ public class Donut extends Circle {
 	public boolean equals(Object obj) {
 
 		if (obj instanceof Donut) {
-			Donut pomocna = (Donut) obj;
-			if (getCenter().equals(pomocna.getCenter()) && getRadius() == pomocna.getRadius()
-					&& innerRadius == pomocna.getInnerRadius())
+			Donut temporary = (Donut) obj;
+			if (getCenter().equals(temporary.getCenter()) && getRadius() == temporary.getRadius()
+					&& innerRadius == temporary.getInnerRadius())
 				return true;
 			else
 				return false;

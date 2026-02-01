@@ -15,7 +15,7 @@ private static final long serialVersionUID = 1L;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 600); //velicina prozora 
-		frame.setTitle("Probna aplikacija"); //naslov prozora
+		frame.setTitle("Test app"); //naslov prozora
 		
 		JPanel drawing = new Drawing(); // objekat koji predstavlja crtez i dodaje ga nasadrzaj prozora
 		frame.getContentPane().add(drawing); //Dodaje crtež na sadržaj prozora.
@@ -57,14 +57,14 @@ private static final long serialVersionUID = 1L;
 		//obrada izuzetaka
 		try { //pocetak bloka koji testira na greske
 			c81.setRadius(-50); //Pokušava postaviti negativni radijus krugu c81, što će izazvati izuzetak.
-			System.out.println("Ostatak try bloka...");
+			System.out.println("The rest of the try block...");
 		} catch (Exception e) { //Blok koda koji se izvršava u slučaju izuzetka.
 			System.out.println(e.getMessage());
 			//e.printStackTrace();
 		} finally {
-			System.out.println("Ja se uvek izvrsavam");
+			System.out.println("I always perform");
 		}
-		System.out.println("Da li cu se izvrsiti?");
+		System.out.println("Will I be executed?");
 		
 		
 		//selektovanje

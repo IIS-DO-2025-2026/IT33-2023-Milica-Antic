@@ -36,20 +36,20 @@ public class Circle extends Shape {
 
 	public boolean equals(Object obj) {
 		if (obj instanceof Circle) {
-			Circle pomocna = (Circle) obj;
-			if (this.center.equals(pomocna.center) && this.selected == pomocna.selected)
+			Circle temporary = (Circle) obj;
+			if (this.center.equals(temporary.center) && this.selected == temporary.selected)
 				return true;
 		}
 		return false;
 	}
 
 	public boolean contains(int x, int y) {
-		Point tackaKlika = new Point(x, y);
-		return (this.center.distance(tackaKlika) <= this.radius);
+		Point clickPoint = new Point(x, y);
+		return (this.center.distance(clickPoint) <= this.radius);
 	}
 
-	public boolean contains(Point tackaKlika) {
-		return (this.center.distance(tackaKlika) <= this.radius);
+	public boolean contains(Point clickPoint) {
+		return (this.center.distance(clickPoint) <= this.radius);
 	}
 
 	@Override

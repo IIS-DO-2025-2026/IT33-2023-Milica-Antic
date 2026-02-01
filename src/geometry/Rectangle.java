@@ -31,9 +31,9 @@ public class Rectangle extends Shape {
 
 	public boolean equals(Object obj) {
 		if (obj instanceof Rectangle) {
-			Rectangle pomocna = (Rectangle) obj;
-			if (this.upperLeftPoint.equals(pomocna.upperLeftPoint) && this.width == pomocna.width
-					&& this.height == pomocna.height && this.selected == pomocna.selected)
+			Rectangle temporary = (Rectangle) obj;
+			if (this.upperLeftPoint.equals(temporary.upperLeftPoint) && this.width == temporary.width
+					&& this.height == temporary.height && this.selected == temporary.selected)
 				return true;
 		}
 		return false;
@@ -45,11 +45,11 @@ public class Rectangle extends Shape {
 	}
 
 	// overloading moze i nad metodama koje nisu konstruktori
-	public boolean contains(Point tackaKlika) {
-		return (tackaKlika.getX() >= this.upperLeftPoint.getX()
-				&& tackaKlika.getX() <= this.upperLeftPoint.getX() + width
-				&& tackaKlika.getY() >= this.upperLeftPoint.getY()
-				&& tackaKlika.getY() <= this.upperLeftPoint.getY() + height);
+	public boolean contains(Point clickPoint) {
+		return (clickPoint.getX() >= this.upperLeftPoint.getX()
+				&& clickPoint.getX() <= this.upperLeftPoint.getX() + width
+				&& clickPoint.getY() >= this.upperLeftPoint.getY()
+				&& clickPoint.getY() <= this.upperLeftPoint.getY() + height);
 	}
 
 	public int area() {

@@ -31,17 +31,17 @@ public class Line extends Shape {
 
 	public boolean equals(Object obj) {// instanceof proverava tip podatka
 		if (obj instanceof Line) {
-			Line pomocna = (Line) obj;
-			if (this.startPoint.equals(pomocna.startPoint) && this.endPoint.equals(pomocna.endPoint)
-					&& this.selected == pomocna.selected)
+			Line temporary = (Line) obj;
+			if (this.startPoint.equals(temporary.startPoint) && this.endPoint.equals(temporary.endPoint)
+					&& this.selected == temporary.selected)
 				return true;
 		}
 		return false;
 	}
 
 	public boolean contains(int x, int y) {
-		Point tackaKlika = new Point(x, y);
-		return this.startPoint.distance(tackaKlika) + this.endPoint.distance(tackaKlika) - lenght() <= 2;
+		Point clickPoint = new Point(x, y);
+		return this.startPoint.distance(clickPoint) + this.endPoint.distance(clickPoint) - lenght() <= 2;
 	}
 
 	@Override
