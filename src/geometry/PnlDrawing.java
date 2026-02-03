@@ -179,7 +179,6 @@ public class PnlDrawing extends JPanel {
 			                : Color.BLACK
 			        );
 
-			        // POVRŠINA – NIKAD null
 			        donut.setSurfaceColor(
 			            dlgDonut.getSurfaceColor() != null
 			                ? dlgDonut.getSurfaceColor()
@@ -191,31 +190,45 @@ public class PnlDrawing extends JPanel {
 
 		}
 			break;
+			
 		case "selected": {
+		    selectedShape = null;
+		    Collections.reverse(listOfShapes);
+		    
+		    boolean found = false; 
+		    
+		    Iterator<Shape> itShape = listOfShapes.iterator();
+		    while (itShape.hasNext()) {
+		        Shape tempShape = itShape.next();
+		        
+		        if (tempShape.contains(e.getX(), e.getY())) {
+		            found = true; 
+		            
+		            if (!tempShape.isSelected() && selectedShape == null) {
+		                tempShape.setSelected(true);
+		                selectedShape = tempShape;
+		                break; 
+		            }
+		            else if (tempShape.isSelected()) {
+		                tempShape.setSelected(false);
+		                selectedShape = null;
+		                break;
+		            }
+		        }
+		    }
 
-			selectedShape = null;
-			Collections.reverse(listOfShapes);
-			Iterator<Shape> itShape = listOfShapes.iterator();
-			while (itShape.hasNext()) {
-				Shape tempShape = itShape.next();
-				if (tempShape.contains(e.getX(), e.getY()) && !tempShape.isSelected() && selectedShape == null) {
-					tempShape.setSelected(true);
-					tempShape.draw(getGraphics());
-					selectedShape = tempShape;
+		   
+		    if (!found) {
+		        for (Shape s : listOfShapes) {
+		            s.setSelected(false);
+		        }
+		        selectedShape = null;
+		    }
 
-				}
-
-				else if (tempShape.isSelected()) {
-					tempShape.setSelected(false);
-					selectedShape = null;
-				}
-
-			}
-			Collections.reverse(listOfShapes);
-
+		    Collections.reverse(listOfShapes);
+		    repaint(); 
 		}
-			break;
-
+		break;
 		/*
 		 * case "delete": { if (selectedShape == null) {
 		 * JOptionPane.showMessageDialog(null, "Nothing 2 is selected", "Error Message",
