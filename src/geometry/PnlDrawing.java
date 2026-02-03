@@ -164,29 +164,29 @@ public class PnlDrawing extends JPanel {
 			dlgDonut = new DlgDonut();
 			dlgDonut.getTxtFieldPointX().setText(String.valueOf(e.getX()));
 			dlgDonut.getTxtFieldPointY().setText(String.valueOf(e.getY()));
-			dlgDonut.getLblChooseASurfaceColor().setForeground(Color.white);
 			dlgDonut.getTxtFieldPointX().setEditable(false);
 			dlgDonut.getTxtFieldPointY().setEditable(false);
 			dlgDonut.setVisible(true);
 
 			if (dlgDonut.isOk()) {
 
-				int r1 = Integer.parseInt(dlgDonut.getTxtFieldBiggerRadius().getText());
-				int r2 = Integer.parseInt(dlgDonut.getTxtFieldSmallerRadius().getText());
-				donut = new Donut(point, r1, r2);
-				if (dlgDonut.getBackColor() == null) {
-					donut.setBorderColor(Color.black);
-				} else {
+				int outerRadius = Integer.parseInt(dlgDonut.getTxtFieldBiggerRadius().getText());
+				int innerRadius = Integer.parseInt(dlgDonut.getTxtFieldSmallerRadius().getText());
+				donut = new Donut(point, outerRadius, innerRadius);
+				donut.setBorderColor(
+			            dlgDonut.getBackColor() != null
+			                ? dlgDonut.getBackColor()
+			                : Color.BLACK
+			        );
 
-					donut.setBorderColor(dlgDonut.getBackColor());
-				}
-				if (dlgDonut.getSurfaceColor() == null) {
-					donut.setSurfaceColor(getBackground());
-				} else {
-					donut.setSurfaceColor(dlgDonut.getSurfaceColor());
-				}
+			        // POVRŠINA – NIKAD null
+			        donut.setSurfaceColor(
+			            dlgDonut.getSurfaceColor() != null
+			                ? dlgDonut.getSurfaceColor()
+			                : Color.WHITE
+			        );
 
-				listOfShapes.add(donut);
+			        listOfShapes.add(donut);
 			}
 
 		}
@@ -237,92 +237,10 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void paint(Graphics g) {
-
 		super.paint(g);
-
-		Iterator<Shape> itShapeDraw = listOfShapes.iterator();
-		while (itShapeDraw.hasNext()) {
-			Shape temp = itShapeDraw.next();
-			if (temp instanceof Point || temp instanceof Line) {
-				if (temp.getBorderColor() != null) {
-					g.setColor(temp.getBorderColor());
-				} else {
-					g.setColor(Color.black);
-				}
-				temp.draw(g);
-			}
-			if (temp instanceof Rectangle) {
-				Rectangle temp1 = (Rectangle) temp;
-				if (temp.getSurfaceColor() != null) {
-					g.setColor(temp.getSurfaceColor());
-
-				} else {
-					g.setColor(Color.white);
-
-				}
-				g.fillRect(temp1.getUpperLeftPoint().getX(), temp1.getUpperLeftPoint().getY(), temp1.getWidth(),
-						temp1.getHeight());
-
-				if (temp.getBorderColor() != null) {
-
-					g.setColor(temp.getBorderColor());
-				} else {
-					g.setColor(Color.black);
-				}
-				temp.draw(g);
-
-			}
-			if (temp instanceof Circle && !(temp instanceof Donut)) {
-				Circle temp1 = (Circle) temp;
-				if (temp.getSurfaceColor() != null) {
-					g.setColor(temp.getSurfaceColor());
-
-				} else {
-					g.setColor(Color.white);
-				}
-				g.fillOval(temp1.getCenter().getX() - temp1.getRadius(),
-						temp1.getCenter().getY() - temp1.getRadius(), 2 * temp1.getRadius(),
-						2 * temp1.getRadius());
-
-				if (temp.getBorderColor() != null) {
-
-					g.setColor(temp.getBorderColor());
-				} else {
-					g.setColor(Color.black);
-				}
-				temp.draw(g);
-			}
-
-			if (temp instanceof Donut) {
-				Donut temp1 = (Donut) temp;
-				Color color = temp.getSurfaceColor();
-				if (color != null) {
-
-					g.setColor(color);
-					g.fillOval(temp1.getCenter().getX() - temp1.getRadius(),
-							temp1.getCenter().getY() - temp1.getRadius(), 2 * temp1.getRadius(),
-							2 * temp1.getRadius());
-
-				}
-
-				g.setColor(Color.white);
-				g.fillOval(temp1.getCenter().getX() - temp1.getInnerRadius(),
-						temp1.getCenter().getY() - temp1.getInnerRadius(), 2 * temp1.getInnerRadius(),
-						2 * temp1.getInnerRadius());
-
-				if (temp.getBorderColor() != null) {
-
-					g.setColor(temp.getBorderColor());
-				} else {
-					g.setColor(Color.black);
-				}
-				temp.draw(g);
-
-			}
-
-		}
-
-	}
+	
+	for (Shape s : listOfShapes) {
+		s.draw(g);}}
 
 	public void delete() {
 

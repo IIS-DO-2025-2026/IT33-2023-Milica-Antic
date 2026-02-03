@@ -54,6 +54,11 @@ public class Circle extends Shape {
 
 	@Override
 	public void draw(Graphics g) {
+		if (surfaceColor != null) {
+			g.setColor(surfaceColor);
+			g.fillOval(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
+		}
+		g.setColor(borderColor != null ? borderColor : Color.BLACK);
 		g.drawOval(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
 		if (isSelected()) {
 			g.setColor(Color.BLUE);

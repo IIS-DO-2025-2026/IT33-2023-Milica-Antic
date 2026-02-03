@@ -1,4 +1,8 @@
 package geometry;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -63,9 +67,27 @@ public class Donut extends Circle {
 
 	@Override
 	public void draw(Graphics g) {
-		super.draw(g);
-		g.drawOval(getCenter().getX() - innerRadius, getCenter().getY() - innerRadius, innerRadius * 2,
-				innerRadius * 2);
+		Graphics2D g2d = (Graphics2D) g;
+	    Ellipse2D outerCircle = new Ellipse2D.Double( getCenter().getX() - getRadius(),getCenter().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
+	    Ellipse2D innerCircle = new Ellipse2D.Double(
+	        getCenter().getX() - innerRadius,
+	        getCenter().getY() - innerRadius,
+	        innerRadius * 2,
+	        innerRadius * 2
+	    );
+	    Area donutArea = new Area(outerCircle);
+	    donutArea.subtract(new Area(innerCircle));
+	    g2d.fill(donutArea);
+
+	    if (surfaceColor != null) {
+	        g2d.setColor(surfaceColor);
+	        g2d.fill(donutArea);
+	    }
+	    if (borderColor != null) {
+	        g2d.setColor(borderColor);
+	        g2d.draw(outerCircle);
+	        g2d.draw(innerCircle);	        
+	    }
 		if (isSelected()) {
 			g.setColor(Color.BLUE);
 			g.drawRect(getCenter().getX() - 2, getCenter().getY() - 2, 4, 4);

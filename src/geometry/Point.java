@@ -55,12 +55,12 @@ public class Point extends Shape {
 	// idu dve linije jer ne crtamo tacku nego plus
 	@Override
 	public void draw(Graphics g) {
+		g.setColor(borderColor != null ? borderColor : Color.BLACK);
 		g.drawLine(x - 2, y, x + 2, y);
 		g.drawLine(x, y - 2, x, y + 2);
 		if (this.selected) {
 			g.setColor(Color.blue);
 			g.drawRect(x - 2, y - 2, 4, 4);
-			g.setColor(Color.black);
 		}
 
 	}

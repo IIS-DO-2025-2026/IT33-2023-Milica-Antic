@@ -1,6 +1,13 @@
-package geometry;
+package archived;
 
 import java.util.Arrays;
+
+import geometry.Donut;
+import geometry.Line;
+import geometry.Point;
+import geometry.Rectangle;
+import geometry.Circle;
+import geometry.Shape;
 
 public class Test {
 

@@ -1,4 +1,8 @@
-package geometry;
+package archived;
+import geometry.Circle;
+import geometry.Point;
+import geometry.Rectangle;
+import geometry.Shape;
 
 import java.awt.Color; // dozvoljava boje da se koriste
 import java.awt.Graphics;
