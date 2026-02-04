@@ -1,12 +1,13 @@
 package mvc;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import observer.ModelObserver;
 import geometry.Shape;
 
 public class DrawingModel {
 	private ArrayList<Shape> listOfShapes = new ArrayList<>();
-	private Shape selectedShape;
+    private List<ModelObserver> observers = new ArrayList<>();
 
 	public ArrayList<Shape> getListOfShapes() {
 		return listOfShapes;
@@ -14,11 +15,35 @@ public class DrawingModel {
 
 	public void add(Shape s) {
 		listOfShapes.add(s);
+		notifyObservers();
 	}
 
 	public void remove(Shape s) {
 		listOfShapes.remove(s);
+		notifyObservers();
 	}
-	
+	public int getSelectedCount() {
+        int count = 0;
+        for (Shape s : listOfShapes) {
+            if (s.isSelected()) count++;
+        }
+        return count;
+    }
+	public void selectionChanged() {
+	    notifyObservers();
+	}
 
-}
+	public void addObserver(ModelObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(ModelObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (ModelObserver o : observers) {
+            o.update();
+        }
+
+}}

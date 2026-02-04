@@ -168,6 +168,7 @@ public class DrawingController {
                 }
             }
             Collections.reverse(model.getListOfShapes());
+            model.selectionChanged();
         } break;
         }
         frame.getView().repaint();
@@ -185,6 +186,7 @@ public class DrawingController {
                 }
             }
         }
+        model.selectionChanged();
         frame.getView().repaint();
     }
 
@@ -300,6 +302,7 @@ public class DrawingController {
     	   for (Shape s : model.getListOfShapes()) {
                s.setSelected(false);
            } 	
+    	   model.selectionChanged();
     		frame.getView().repaint();
     	}
     
@@ -319,18 +322,14 @@ public class DrawingController {
     		return;
     		}
         boolean isSelected = false;
-        int count=0;
         for (Shape s : model.getListOfShapes()) {
             if (s.isSelected()) {
                 isSelected = true;
                 break;
             }
         }
-         if(model.getListOfShapes().size()>1){
-        	for (Shape s : model.getListOfShapes()) {
-                if(s.isSelected()) count++;
-        	}
-        	if(count>1)
+    
+        	if(model.getSelectedCount()>1) {
            JOptionPane.showMessageDialog(null, "Cant modify multiple shapes", "Error Message",JOptionPane.INFORMATION_MESSAGE);
     	   return;
     	}
@@ -365,5 +364,8 @@ public class DrawingController {
     	frame.getView().repaint();
     }
 
-   
+    public int getSelectedCount() {
+        return model.getSelectedCount();
+    }
+
 }

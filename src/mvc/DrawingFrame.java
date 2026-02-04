@@ -18,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
-public class DrawingFrame extends JFrame {
+import observer.ModelObserver;
+
+public class DrawingFrame extends JFrame implements ModelObserver{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -26,6 +28,8 @@ public class DrawingFrame extends JFrame {
 	private DrawingController controller;
 	private ButtonGroup group = new ButtonGroup();
 	private String word = "";
+	private JButton btnModify ;
+	private JButton btnDelete;
 
 	/**
 	 * Create the frame.
@@ -145,7 +149,7 @@ public class DrawingFrame extends JFrame {
 		gbc_tglbtnSelect.gridy = 1;
 		pnlSouth.add(tglbtnSelect, gbc_tglbtnSelect);
 
-		JButton btnModify = new JButton("Modify");
+		 btnModify = new JButton("Modify");
 		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			;
@@ -160,7 +164,7 @@ public class DrawingFrame extends JFrame {
 		gbc_btnModify.gridy = 1;
 		pnlSouth.add(btnModify, gbc_btnModify);
 
-		JButton btnDelete = new JButton("Delete");
+		 btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -175,6 +179,9 @@ public class DrawingFrame extends JFrame {
 		pnlSouth.add(btnDelete, gbc_btnDelete);
 		view.setBackground(new Color(255, 255, 255));
 		
+		btnModify.setVisible(false);
+		btnDelete.setVisible(false);
+
 		contentPane.add(view, BorderLayout.CENTER);
 		view.addMouseListener(new MouseAdapter() {
 			@Override
@@ -198,4 +205,13 @@ public class DrawingFrame extends JFrame {
 	public void setController(DrawingController controller) {
 		this.controller = controller;
 	}
+	
+	@Override
+	public void update() {
+	    int selectedCount = controller.getSelectedCount();
+
+	    btnModify.setVisible(selectedCount == 1);
+	    btnDelete.setVisible(selectedCount >= 1);
+	}
+
 }

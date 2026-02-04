@@ -18,7 +18,8 @@ public class Application {
 					frame.getView().setModel(model);
 					DrawingController controller=new DrawingController(model,frame);
 					frame.setController(controller);
-					
+					model.addObserver(frame);
+						
 					frame.setTitle("Antic Milica IT33/2023");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setBounds(100, 100, 450, 400);
