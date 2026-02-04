@@ -212,7 +212,7 @@ public class DrawingController {
                 if (dlgPoint.getBackColor() != null) {
                 	temp.setBorderColor(dlgPoint.getBackColor());
                 }
-                temp.setSelected(false);
+                //temp.setSelected(false);
             }
         } else if (selectedShape instanceof Line) {
             Line temp = (Line) selectedShape ;
@@ -230,7 +230,7 @@ public class DrawingController {
                 if (dlgLine.getBackColor() != null) {
                 	temp.setBorderColor(dlgLine.getBackColor());
                 }
-                temp.setSelected(false);
+                //temp.setSelected(false);
             }
         } else if (selectedShape instanceof Rectangle) {
             Rectangle temp = (Rectangle) selectedShape;
@@ -251,7 +251,7 @@ public class DrawingController {
                 if (dlgRectangle.getSurfaceColor() != null) {
                 	temp.setSurfaceColor(dlgRectangle.getSurfaceColor());
                 }
-                temp.setSelected(false);
+                //temp.setSelected(false);
             }
         } else if (selectedShape instanceof Donut) {
             Donut temp = (Donut) selectedShape;
@@ -272,7 +272,7 @@ public class DrawingController {
                 if (dlgDonut.getSurfaceColor() != null) {
                 	temp.setSurfaceColor(dlgDonut.getSurfaceColor());
                 }
-                temp.setSelected(false);
+                //temp.setSelected(false);
             }
         } else if (selectedShape instanceof Circle) {
             Circle temp = (Circle) selectedShape;
@@ -291,7 +291,7 @@ public class DrawingController {
                 if (dlgCircle.getSurfaceColor() != null) {
                 	temp.setSurfaceColor(dlgCircle.getSurfaceColor());
                 }
-                temp.setSelected(false);
+                //temp.setSelected(false);
             }
         }
         frame.getView().repaint();
