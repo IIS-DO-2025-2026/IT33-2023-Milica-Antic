@@ -2,6 +2,7 @@ package geometry;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -28,6 +29,8 @@ public class DlgPoint extends JDialog {
 	private JLabel lblChooseABorderColor;
 	private JTextField txtFieldPointX;
 	private JTextField txtFieldPointY;
+	private JButton btnBorderColor ;
+
 
 	/**
 	 * Launch the application.
@@ -103,20 +106,21 @@ public class DlgPoint extends JDialog {
 				txtFieldPointY.setColumns(10);
 			}
 			{
-				lblChooseABorderColor = new JLabel("Cuurent color");
+				lblChooseABorderColor = new JLabel("Cuurent color :");
 				GridBagConstraints gbc_lblChooseABorderColor = new GridBagConstraints();
 				gbc_lblChooseABorderColor.insets = new Insets(0, 0, 0, 5);
 				gbc_lblChooseABorderColor.gridx = 0;
 				gbc_lblChooseABorderColor.gridy = 2;
 				panel.add(lblChooseABorderColor, gbc_lblChooseABorderColor);
 			}
-			JButton btnBorderColor = new JButton("Border color");
+			 btnBorderColor = new JButton("");
+			 btnBorderColor.setPreferredSize(new Dimension(100,30));
 			btnBorderColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					backColor = JColorChooser.showDialog(null, "Choose background color", Color.black);
 					if (backColor != null) {
-						lblChooseABorderColor.setForeground(backColor);
-
+			            btnBorderColor.setBackground(backColor);
+			            btnBorderColor.setSelected(false);
 					}
 
 				}
@@ -200,4 +204,18 @@ public class DlgPoint extends JDialog {
 	public void setTxtFieldPointY(JTextField txtFieldPointY) {
 		this.txtFieldPointY = txtFieldPointY;
 	}
+
+	public void setBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+	public void setInitialBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+
 }

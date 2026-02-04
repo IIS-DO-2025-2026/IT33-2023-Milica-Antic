@@ -2,6 +2,7 @@ package geometry;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -32,6 +33,9 @@ public class DlgDonut extends JDialog {
 	private Color surfaceColor;
 	private JTextField txtFieldPointX;
 	private JTextField txtFieldPointY;
+	private JButton btnBorderColor;
+	private JButton btnSurfaceColor;
+
 
 	/**
 	 * Launch the application.
@@ -125,26 +129,32 @@ public class DlgDonut extends JDialog {
 				panel.add(txtFieldBiggerRadius, gbc_txtFieldBiggerRadius);
 				txtFieldBiggerRadius.setColumns(10);
 			}
-			JButton btnSurfaceColor = new JButton("Surface color");
+			 btnSurfaceColor = new JButton("");
+			 btnSurfaceColor.setPreferredSize(new Dimension(100,30));
 			btnSurfaceColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					surfaceColor = JColorChooser.showDialog(null, "Choose background color", Color.black);
 
 					if (surfaceColor != null) {
-						lblChooseASurfaceColor.setForeground(surfaceColor);
+			            btnSurfaceColor.setBackground(surfaceColor);
+			            btnSurfaceColor.setSelected(false);
+
 
 					}
 
 				}
 			});
 			{
-				JButton btnBorderColor = new JButton("BorderColor");
+				 btnBorderColor = new JButton("");
+				 btnBorderColor.setPreferredSize(new Dimension(100,30));
 				btnBorderColor.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						backColor = JColorChooser.showDialog(null, "Choose background color", Color.white);
 
 						if (backColor != null) {
-							lblChooseABorderColor.setForeground(backColor);
+				            btnBorderColor.setBackground(backColor);
+				            btnBorderColor.setSelected(false);
+
 
 						}
 
@@ -287,10 +297,6 @@ public class DlgDonut extends JDialog {
 		return surfaceColor;
 	}
 
-	public void setSurfaceColor(Color surfaceColor) {
-		this.surfaceColor = surfaceColor;
-	}
-
 	public JLabel getLblChooseABorderColor() {
 		return lblChooseABorderColor;
 	}
@@ -322,4 +328,30 @@ public class DlgDonut extends JDialog {
 	public void setTxtFieldPointY(JTextField txtFieldPointY) {
 		this.txtFieldPointY = txtFieldPointY;
 	}
+	public void setBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+	public void setSurfaceColor(Color color) {
+	    this.surfaceColor = color;
+	    if (color != null) {
+	        btnSurfaceColor.setBackground(color);
+	    }
+	}
+	public void setInitialBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+	public void setInitialSurfaceColor(Color color) {
+	    this.surfaceColor = color;
+	    if (color != null) {
+	        btnSurfaceColor.setBackground(color);
+	    }
+	}
+
+
 }

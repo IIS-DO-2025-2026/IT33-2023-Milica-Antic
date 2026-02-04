@@ -2,6 +2,7 @@ package geometry;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ public class DlgLine extends JDialog {
 	private JTextField txtFieldStartPointY;
 	private JTextField txtFieldEndPointY;
 	private JTextField txtFieldEndPointX;
+	private JButton btnBorderColor;
 
 	/**
 	 * Launch the application.
@@ -148,12 +150,16 @@ public class DlgLine extends JDialog {
 				gbc_lblChooseABorderColor.gridy = 4;
 				panel.add(lblChooseABorderColor, gbc_lblChooseABorderColor);
 			}
-			JButton btnBorderColor = new JButton("Border color");
+			 btnBorderColor = new JButton("");
+			 btnBorderColor.setPreferredSize(new Dimension(100,30));
 			btnBorderColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					backColor = JColorChooser.showDialog(null, "Choose background color", Color.black);
 					if (backColor != null) {
-						lblChooseABorderColor.setForeground(backColor);
+			            btnBorderColor.setBackground(backColor);
+			            btnBorderColor.setSelected(false);
+
+
 
 					}
 
@@ -255,4 +261,19 @@ public class DlgLine extends JDialog {
 	public void setOk(boolean isOk) {
 		this.isOk = isOk;
 	}
+	public void setBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+
+	public void setInitialBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+
+
 }

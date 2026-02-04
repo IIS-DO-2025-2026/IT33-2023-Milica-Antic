@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import observer.ModelObserver;
@@ -8,6 +9,9 @@ import geometry.Shape;
 public class DrawingModel {
 	private ArrayList<Shape> listOfShapes = new ArrayList<>();
     private List<ModelObserver> observers = new ArrayList<>();
+    private Color activeBorderColor = Color.BLACK;
+    private Color activeSurfaceColor = Color.WHITE;
+
 
 	public ArrayList<Shape> getListOfShapes() {
 		return listOfShapes;
@@ -45,5 +49,24 @@ public class DrawingModel {
         for (ModelObserver o : observers) {
             o.update();
         }
+        
 
-}}
+    	}	
+    public Color getActiveBorderColor() {
+		return activeBorderColor;
+	}
+
+	public void setActiveBorderColor(Color activeBorderColor) {
+		this.activeBorderColor = activeBorderColor;
+	}
+
+	public Color getActiveSurfaceColor() {
+		return activeSurfaceColor;
+	}
+
+	public void setActiveSurfaceColor(Color activeSurfaceColor) {
+		this.activeSurfaceColor = activeSurfaceColor;
+	}
+
+	
+    }

@@ -39,6 +39,7 @@ public class DrawingController {
         switch (frame.getWord()) {
         case "point": {
             DlgPoint dlgPoint = new DlgPoint();
+            dlgPoint.setInitialBorderColor(model.getActiveBorderColor());
             dlgPoint.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgPoint.getTxtFieldPointY().setText(String.valueOf(e.getY()));
             dlgPoint.getTxtFieldPointX().setEditable(false);
@@ -46,7 +47,7 @@ public class DrawingController {
             dlgPoint.setVisible(true);
             if (dlgPoint.isOk()) {
                 if (dlgPoint.getBackColor() == null) {
-                	point.setBorderColor(Color.black);
+                	point.setBorderColor(model.getActiveBorderColor());
                 }
                 else {
                 	point.setBorderColor(dlgPoint.getBackColor());
@@ -62,6 +63,7 @@ public class DrawingController {
             else {
                 Line line = new Line(point1, point);
                 DlgLine dlgLine = new DlgLine();
+                dlgLine.setInitialBorderColor(model.getActiveBorderColor());
                 dlgLine.getTxtFieldStartPointX().setText(String.valueOf(point1.getX()));
                 dlgLine.getTxtFieldStartPointY().setText(String.valueOf(point1.getY()));
                 dlgLine.getTxtFieldEndPointX().setText(String.valueOf(point.getX()));
@@ -72,7 +74,9 @@ public class DrawingController {
                 dlgLine.getTxtFieldEndPointY().setEditable(false);
                 dlgLine.setVisible(true);
                 if (dlgLine.isOk()) {
-                    if (dlgLine.getBackColor() == null) line.setBorderColor(Color.black);
+                    if (dlgLine.getBackColor() == null) {
+                    	line.setBorderColor(model.getActiveBorderColor());
+                    }
                     else {
                     	line.setBorderColor(dlgLine.getBackColor());
                     }
@@ -84,6 +88,8 @@ public class DrawingController {
 
         case "rectangle": {
             DlgRectangle dlgRectangle = new DlgRectangle();
+            dlgRectangle.setInitialBorderColor(model.getActiveBorderColor());
+            dlgRectangle.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgRectangle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgRectangle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
 			dlgRectangle.getLblChooseASurfaceColor().setForeground(Color.white);
@@ -93,13 +99,13 @@ public class DrawingController {
             if (dlgRectangle.isOk()) {
                 Rectangle rect = new Rectangle(point, Integer.parseInt(dlgRectangle.getTxtFieldWidth().getText()),Integer.parseInt(dlgRectangle.getTxtFieldHeight().getText()));
                 if (dlgRectangle.getBackColor() == null) {
-                	rect.setBorderColor(Color.black);
+                	rect.setBorderColor(model.getActiveBorderColor());
                 }
                 else {
                 	rect.setBorderColor(dlgRectangle.getBackColor());
                 }
                 if (dlgRectangle.getSurfaceColor() == null) {
-                	rect.setSurfaceColor(frame.getView().getBackground());
+                	rect.setSurfaceColor(model.getActiveSurfaceColor());
                 }
                 else {
                 	rect.setSurfaceColor(dlgRectangle.getSurfaceColor());
@@ -110,6 +116,8 @@ public class DrawingController {
 
         case "circle": {
             DlgCircle dlgCircle = new DlgCircle();
+            dlgCircle.setInitialBorderColor(model.getActiveBorderColor());
+            dlgCircle.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgCircle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgCircle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
 			dlgCircle.getLblChooseASurfaceColor().setForeground(Color.white);
@@ -119,13 +127,13 @@ public class DrawingController {
             if (dlgCircle.isOk()) {
                 Circle circle = new Circle(point, Integer.parseInt(dlgCircle.getTxtFieldRadius().getText()));
                 if (dlgCircle.getBackColor() == null) {
-                	circle.setBorderColor(Color.black);
+                	circle.setBorderColor(model.getActiveBorderColor());
                 }
                 else {
                 	circle.setBorderColor(dlgCircle.getBackColor());
                 }
                 if (dlgCircle.getSurfaceColor() == null) {
-                	circle.setSurfaceColor(frame.getView().getBackground());
+                	circle.setSurfaceColor(model.getActiveSurfaceColor());
                 }
                 else {
                 	circle.setSurfaceColor(dlgCircle.getSurfaceColor());
@@ -136,6 +144,8 @@ public class DrawingController {
 
         case "donut": {
             DlgDonut dlgDonut = new DlgDonut();
+            dlgDonut.setInitialBorderColor(model.getActiveBorderColor());
+            dlgDonut.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgDonut.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgDonut.getTxtFieldPointY().setText(String.valueOf(e.getY()));
 			dlgDonut.getLblChooseASurfaceColor().setForeground(Color.white);
@@ -144,8 +154,8 @@ public class DrawingController {
             dlgDonut.setVisible(true);
             if (dlgDonut.isOk()) {
                 Donut donut = new Donut(point, Integer.parseInt(dlgDonut.getTxtFieldBiggerRadius().getText()),Integer.parseInt(dlgDonut.getTxtFieldSmallerRadius().getText()));
-                donut.setBorderColor(dlgDonut.getBackColor() != null ? dlgDonut.getBackColor() : Color.BLACK);
-                donut.setSurfaceColor(dlgDonut.getSurfaceColor() != null ? dlgDonut.getSurfaceColor() : Color.WHITE);
+                donut.setBorderColor(dlgDonut.getBackColor() != null ? dlgDonut.getBackColor() : model.getActiveBorderColor());
+                donut.setSurfaceColor(dlgDonut.getSurfaceColor() != null ? dlgDonut.getSurfaceColor() : model.getActiveSurfaceColor());
                 model.add(donut);
             }
         } break;
@@ -207,6 +217,7 @@ public class DrawingController {
             DlgPoint dlgPoint = new DlgPoint();
             dlgPoint.getTxtFieldPointX().setText(String.valueOf(temp.getX()));
             dlgPoint.getTxtFieldPointY().setText(String.valueOf(temp.getY()));
+            dlgPoint.setInitialBorderColor(temp.getBorderColor());
             dlgPoint.setVisible(true);
             if (dlgPoint.isOk()) {
                 temp.setX(Integer.parseInt(dlgPoint.getTxtFieldPointX().getText()));
@@ -223,6 +234,7 @@ public class DrawingController {
             dlgLine.getTxtFieldStartPointY().setText(String.valueOf(temp.getStartPoint().getY()));
             dlgLine.getTxtFieldEndPointX().setText(String.valueOf(temp.getEndPoint().getX()));
             dlgLine.getTxtFieldEndPointY().setText(String.valueOf(temp.getEndPoint().getY()));
+            dlgLine.setInitialBorderColor(temp.getBorderColor());
             dlgLine.setVisible(true);
             if (dlgLine.isOk()) {
                 temp.getStartPoint().setX(Integer.parseInt(dlgLine.getTxtFieldStartPointX().getText()));
@@ -241,6 +253,8 @@ public class DrawingController {
             dlgRectangle.getTxtFieldPointY().setText(String.valueOf(temp.getUpperLeftPoint().getY()));
             dlgRectangle.getTxtFieldWidth().setText(String.valueOf(temp.getWidth()));
             dlgRectangle.getTxtFieldHeight().setText(String.valueOf(temp.getHeight()));
+            dlgRectangle.setInitialBorderColor(temp.getBorderColor());
+            dlgRectangle.setInitialSurfaceColor(temp.getSurfaceColor());
             dlgRectangle.setVisible(true);
             if (dlgRectangle.isOk()) {
                 temp.getUpperLeftPoint().setX(Integer.parseInt(dlgRectangle.getTxtFieldPointX().getText()));
@@ -262,6 +276,8 @@ public class DrawingController {
             dlgDonut.getTxtFieldPointY().setText(String.valueOf(temp.getCenter().getY()));
             dlgDonut.getTxtFieldBiggerRadius().setText(String.valueOf(temp.getRadius()));
             dlgDonut.getTxtFieldSmallerRadius().setText(String.valueOf(temp.getInnerRadius()));
+            dlgDonut.setInitialBorderColor(temp.getBorderColor());
+            dlgDonut.setInitialSurfaceColor(temp.getSurfaceColor());
             dlgDonut.setVisible(true);
             if (dlgDonut.isOk()) {
                 temp.getCenter().setX(Integer.parseInt(dlgDonut.getTxtFieldPointX().getText()));
@@ -282,6 +298,8 @@ public class DrawingController {
             dlgCircle.getTxtFieldPointX().setText(String.valueOf(temp.getCenter().getX()));
             dlgCircle.getTxtFieldPointY().setText(String.valueOf(temp.getCenter().getY()));
             dlgCircle.getTxtFieldRadius().setText(String.valueOf(temp.getRadius()));
+            dlgCircle.setInitialBorderColor(temp.getBorderColor());
+            dlgCircle.setInitialSurfaceColor(temp.getSurfaceColor());
             dlgCircle.setVisible(true);
             if (dlgCircle.isOk()) {
                 temp.getCenter().setX(Integer.parseInt(dlgCircle.getTxtFieldPointX().getText()));
@@ -367,5 +385,13 @@ public class DrawingController {
     public int getSelectedCount() {
         return model.getSelectedCount();
     }
+    public void changeBorderColor(Color color) {
+        model.setActiveBorderColor(color);
+    }
+
+    public void changeSurfaceColor(Color color) {
+        model.setActiveSurfaceColor(color);
+    }
+
 
 }

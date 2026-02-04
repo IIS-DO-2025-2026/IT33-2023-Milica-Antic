@@ -2,6 +2,7 @@ package mvc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,8 +13,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +32,9 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 	private String word = "";
 	private JButton btnModify ;
 	private JButton btnDelete;
+	private JToggleButton  btnBorderColor;
+	private JToggleButton btnSurfaceColor;
+
 
 	/**
 	 * Create the frame.
@@ -121,9 +126,68 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 			}
 		});
 		GridBagConstraints gbc_tglbtnDonut = new GridBagConstraints();
+		gbc_tglbtnCircle.insets = new Insets(0, 0, 0, 5);
 		gbc_tglbtnDonut.gridx = 4;
 		gbc_tglbtnDonut.gridy = 0;
 		pnlNorth.add(tglbtnDonut, gbc_tglbtnDonut);
+		
+		JLabel lblBorder = new JLabel("Border:");
+		GridBagConstraints gbc_lblBorder = new GridBagConstraints();
+		gbc_lblBorder.anchor = GridBagConstraints.EAST;
+		gbc_lblBorder.insets = new Insets(0, 0, 0, 5);
+		gbc_lblBorder.gridx = 5;
+		gbc_lblBorder.gridy = 0;
+		pnlNorth.add(lblBorder, gbc_lblBorder);
+		
+		 btnBorderColor = new JToggleButton("");
+		btnBorderColor.setBackground(Color.black);
+		btnBorderColor.setPreferredSize(new Dimension(20,20));
+		btnBorderColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    Color newColor = JColorChooser.showDialog(null,"Choose border color",btnBorderColor.getBackground() );
+
+			    if (newColor != null) {
+		            btnBorderColor.setBackground(newColor);
+		            controller.changeBorderColor(newColor);
+		        }
+		        btnBorderColor.setSelected(false);
+
+			}
+		});
+		GridBagConstraints gbc_tglbtnBorderColor = new GridBagConstraints();
+		gbc_tglbtnBorderColor.insets = new Insets(0, 0, 0, 5);
+		gbc_tglbtnBorderColor.gridx = 6;
+		gbc_tglbtnBorderColor.gridy = 0;
+		pnlNorth.add(btnBorderColor, gbc_tglbtnBorderColor);
+		
+		JLabel lblSurface = new JLabel("Surface:");
+		GridBagConstraints gbc_lblSurface = new GridBagConstraints();
+		gbc_lblSurface.anchor = GridBagConstraints.EAST;
+		gbc_lblSurface.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSurface.gridx = 7;
+		gbc_lblSurface.gridy = 0;
+		pnlNorth.add(lblSurface, gbc_lblSurface);
+		
+		
+		 btnSurfaceColor = new JToggleButton("");
+		btnSurfaceColor.setBackground(Color.white);
+		btnSurfaceColor.setPreferredSize(new Dimension(20,20));
+		btnSurfaceColor.addActionListener(e -> {
+		    Color newColor = JColorChooser.showDialog(this,"Choose surface color",btnSurfaceColor.getBackground() );
+		        if (newColor != null) {
+		            btnSurfaceColor.setBackground(newColor);
+		            controller.changeSurfaceColor(newColor);
+		        }
+		        btnSurfaceColor.setSelected(false);
+
+		    });
+		GridBagConstraints gbc_tglbtnSurfaceColor = new GridBagConstraints();
+		gbc_tglbtnSurfaceColor.insets = new Insets(0, 0, 0, 6);
+		gbc_tglbtnSurfaceColor.gridx = 8;
+		gbc_tglbtnSurfaceColor.gridy = 0;
+		pnlNorth.add(btnSurfaceColor, gbc_tglbtnSurfaceColor);
+
+
 
 		JPanel pnlSouth = new JPanel();
 		contentPane.add(pnlSouth, BorderLayout.SOUTH);

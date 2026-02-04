@@ -1,7 +1,5 @@
 package mvc;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,7 +20,7 @@ public class Application {
 						
 					frame.setTitle("Antic Milica IT33/2023");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frame.setBounds(100, 100, 450, 400);
+					frame.setBounds(100, 100, 600, 400);
 					
 					frame.setVisible(true);
 

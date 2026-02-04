@@ -2,6 +2,7 @@ package geometry;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,9 @@ public class DlgCircle extends JDialog {
 	private JLabel lblChooseABorderColor;
 	private Color surfaceColor;
 	private JLabel lblChooseASurfaceColor;
+	private JButton btnBorderColor;
+	private JButton btnSurfaceColor;
+
 
 	/**
 	 * Launch the application.
@@ -122,12 +126,15 @@ public class DlgCircle extends JDialog {
 				txtFieldRadius.setColumns(10);
 			}
 			{
-				JButton btnBorderColor = new JButton("Border color");
+				 btnBorderColor = new JButton("");
+				 btnBorderColor.setPreferredSize(new Dimension(100,30));
 				btnBorderColor.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						backColor = JColorChooser.showDialog(null, "Choose background color", Color.black);
 						if (backColor != null) {
-							lblChooseABorderColor.setForeground(backColor);
+				            btnBorderColor.setBackground(backColor);
+				            btnBorderColor.setSelected(false);
+
 
 						}
 
@@ -155,13 +162,17 @@ public class DlgCircle extends JDialog {
 				gbc_lblChooseASurfaceColor.gridy = 4;
 				panel.add(lblChooseASurfaceColor, gbc_lblChooseASurfaceColor);
 			}
-			JButton btnSurfaceColor = new JButton("Surface color");
+			 btnSurfaceColor = new JButton("");
+			 btnSurfaceColor.setPreferredSize(new Dimension(100,30));
 			btnSurfaceColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					surfaceColor = JColorChooser.showDialog(null, "Choose background color", Color.white);
 					lblChooseASurfaceColor.setForeground(Color.white);
 					if (surfaceColor != null) {
-						lblChooseASurfaceColor.setForeground(surfaceColor);
+			            btnSurfaceColor.setBackground(surfaceColor);
+			            btnSurfaceColor.setSelected(false);
+
+
 
 					}
 
@@ -228,10 +239,6 @@ public class DlgCircle extends JDialog {
 		return surfaceColor;
 	}
 
-	public void setSurfaceColor(Color surfaceColor) {
-		this.surfaceColor = surfaceColor;
-	}
-
 	private Color backColor;
 	private JTextField txtFieldPointY;
 
@@ -293,4 +300,30 @@ public class DlgCircle extends JDialog {
 	public void setLblChooseASurfaceColor(JLabel lblChooseASurfaceColor) {
 		this.lblChooseASurfaceColor = lblChooseASurfaceColor;
 	}
+	public void setBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+	public void setSurfaceColor(Color color) {
+	    this.surfaceColor = color;
+	    if (color != null) {
+	        btnSurfaceColor.setBackground(color);
+	    }
+	}
+	public void setInitialBorderColor(Color color) {
+	    this.backColor = color;
+	    if (color != null) {
+	        btnBorderColor.setBackground(color);
+	    }
+	}
+	public void setInitialSurfaceColor(Color color) {
+	    this.surfaceColor = color;
+	    if (color != null) {
+	        btnSurfaceColor.setBackground(color);
+	    }
+	}
+
+
 }
