@@ -1,4 +1,4 @@
-package geometry;
+package mvc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,10 +22,8 @@ public class DrawingFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private DrawingModel model = new DrawingModel();
 	private DrawingView view = new DrawingView();
 	private DrawingController controller;
-	
 	private ButtonGroup group = new ButtonGroup();
 	private String word = "";
 
@@ -33,15 +31,10 @@ public class DrawingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public DrawingFrame() {
-
-		controller = new DrawingController(model, view);
-		view.setModel(model);
-		
-		setTitle("Antic Milica IT33/2023");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -60,11 +53,7 @@ public class DrawingFrame extends JFrame {
 		tglbtnPoint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				word = "point";
-				if (controller.getSelectedShape() != null) {
-					controller.getSelectedShape().setSelected(false);
-					controller.setSelectedShape(null);
-					view.repaint();
-				}
+				controller.onModeChanged();
 			}
 		});
 		GridBagConstraints gbc_tglbtnPoint = new GridBagConstraints();
@@ -78,11 +67,8 @@ public class DrawingFrame extends JFrame {
 		tglbtnLine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				word = "line";
-				if (controller.getSelectedShape() != null) {
-					controller.getSelectedShape().setSelected(false);
-					controller.setSelectedShape(null);
-					view.repaint();
-				}
+				controller.onModeChanged();
+
 			}
 		});
 		GridBagConstraints gbc_tglbtnLine = new GridBagConstraints();
@@ -96,11 +82,8 @@ public class DrawingFrame extends JFrame {
 		tglbtnRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				word = "rectangle";
-				if (controller.getSelectedShape() != null) {
-					controller.getSelectedShape().setSelected(false);
-					controller.setSelectedShape(null);
-					view.repaint();
-				}
+				controller.onModeChanged();
+
 			}
 		});
 		GridBagConstraints gbc_tglbtnRectangle = new GridBagConstraints();
@@ -114,11 +97,8 @@ public class DrawingFrame extends JFrame {
 		tglbtnCircle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				word = "circle";
-				if (controller.getSelectedShape() != null) {
-					controller.getSelectedShape().setSelected(false);
-					controller.setSelectedShape(null);
-					view.repaint();
-				}
+				controller.onModeChanged();
+
 			}
 		});
 		GridBagConstraints gbc_tglbtnCircle = new GridBagConstraints();
@@ -132,11 +112,8 @@ public class DrawingFrame extends JFrame {
 		tglbtnDonut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				word = "donut";
-				if (controller.getSelectedShape() != null) {
-					controller.getSelectedShape().setSelected(false);
-					controller.setSelectedShape(null);
-					view.repaint();
-				}
+				controller.onModeChanged();
+
 			}
 		});
 		GridBagConstraints gbc_tglbtnDonut = new GridBagConstraints();
@@ -155,19 +132,12 @@ public class DrawingFrame extends JFrame {
 
 		JToggleButton tglbtnSelect = new JToggleButton("Select");
 		group.add(tglbtnSelect);
-		tglbtnSelect.addActionListener(new ActionListener() {
+		tglbtnSelect.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				if (model.getListOfShapes().size() > 0) {
-					if (controller.getSelectedShape() != null) {
-						controller.getSelectedShape().setSelected(false);
-						controller.setSelectedShape(null);
-						view.repaint();
-					}
 					word = "selected";
-				} else {
-					JOptionPane.showMessageDialog(null, "There are no drawn shapes", "Error Message", JOptionPane.INFORMATION_MESSAGE);
-				}
+					controller.selectMode();
 			}
+			
 		});
 		GridBagConstraints gbc_tglbtnSelect = new GridBagConstraints();
 		gbc_tglbtnSelect.insets = new Insets(0, 0, 0, 5);
@@ -178,19 +148,10 @@ public class DrawingFrame extends JFrame {
 		JButton btnModify = new JButton("Modify");
 		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (model.getListOfShapes().size() > 0) {
-					if (controller.getSelectedShape() != null) {
-						controller.getSelectedShape().setSelected(false);
-						controller.modify();
+			;
 						word = "selected";
-					} else {
-						JOptionPane.showMessageDialog(null, "Nothing is selected,", "Error Message", JOptionPane.INFORMATION_MESSAGE);
-						tglbtnSelect.setSelected(true);
-						word = "selected";
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "There are no drawn shapes", "Error Message", JOptionPane.INFORMATION_MESSAGE);
-				}
+						controller.modifyRequest();
+
 			}
 		});
 		GridBagConstraints gbc_btnModify = new GridBagConstraints();
@@ -202,34 +163,23 @@ public class DrawingFrame extends JFrame {
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (model.getListOfShapes().size() > 0) {
-					if (controller.getSelectedShape() != null) {
-						controller.getSelectedShape().setSelected(false);
-						controller.delete();
+				
 						word = "selected";
-					} else {
-						JOptionPane.showMessageDialog(null, "Nothing is selected,", "Error Message", JOptionPane.INFORMATION_MESSAGE);
-						tglbtnSelect.setSelected(true);
-						word = "selected";
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "There are no drawn shapes", "Error Message", JOptionPane.INFORMATION_MESSAGE);
-				}
+						controller.deleteRequest();
+
 			}
 		});
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 1;
 		pnlSouth.add(btnDelete, gbc_btnDelete);
-
-	
 		view.setBackground(new Color(255, 255, 255));
+		
 		contentPane.add(view, BorderLayout.CENTER);
-
 		view.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controller.drawing(e, DrawingFrame.this);
+				controller.drawing(e);
 			}
 		});
 	}
@@ -240,5 +190,12 @@ public class DrawingFrame extends JFrame {
 
 	public void setWord(String word) {
 		this.word = word;
+	}
+
+	public DrawingView getView() {
+		return view;
+	}
+	public void setController(DrawingController controller) {
+		this.controller = controller;
 	}
 }

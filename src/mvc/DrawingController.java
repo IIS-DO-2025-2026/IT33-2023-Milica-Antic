@@ -1,23 +1,39 @@
-package geometry;
+package mvc;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class DrawingController {
-    private DrawingModel model;
-    private DrawingView view;
-    
-    private Point point1 = null;
-    private Shape selectedShape;
+import javax.swing.JOptionPane;
 
-    public DrawingController(DrawingModel model, DrawingView view) {
+import geometry.Circle;
+import geometry.DlgCircle;
+import geometry.DlgDelete;
+import geometry.DlgDonut;
+import geometry.DlgLine;
+import geometry.DlgPoint;
+import geometry.DlgRectangle;
+import geometry.Donut;
+import geometry.Line;
+import geometry.Point;
+import geometry.Rectangle;
+import geometry.Shape;
+
+
+
+public class DrawingController {
+	
+    private DrawingModel model;
+    private DrawingFrame frame;
+    private Point point1 = null;
+
+    public DrawingController(DrawingModel model, DrawingFrame frame) {
         this.model = model;
-        this.view = view;
+        this.frame=frame;
     }
 
-    public void drawing(MouseEvent e, DrawingFrame frame) {
+    public void drawing(MouseEvent e) {
         Point point = new Point(e.getX(), e.getY());
 
         switch (frame.getWord()) {
@@ -70,6 +86,7 @@ public class DrawingController {
             DlgRectangle dlgRectangle = new DlgRectangle();
             dlgRectangle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgRectangle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
+			dlgRectangle.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgRectangle.getTxtFieldPointX().setEditable(false);
             dlgRectangle.getTxtFieldPointY().setEditable(false);
             dlgRectangle.setVisible(true);
@@ -82,7 +99,7 @@ public class DrawingController {
                 	rect.setBorderColor(dlgRectangle.getBackColor());
                 }
                 if (dlgRectangle.getSurfaceColor() == null) {
-                	rect.setSurfaceColor(view.getBackground());
+                	rect.setSurfaceColor(frame.getView().getBackground());
                 }
                 else {
                 	rect.setSurfaceColor(dlgRectangle.getSurfaceColor());
@@ -95,6 +112,7 @@ public class DrawingController {
             DlgCircle dlgCircle = new DlgCircle();
             dlgCircle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgCircle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
+			dlgCircle.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgCircle.getTxtFieldPointX().setEditable(false);
             dlgCircle.getTxtFieldPointY().setEditable(false);
             dlgCircle.setVisible(true);
@@ -107,7 +125,7 @@ public class DrawingController {
                 	circle.setBorderColor(dlgCircle.getBackColor());
                 }
                 if (dlgCircle.getSurfaceColor() == null) {
-                	circle.setSurfaceColor(view.getBackground());
+                	circle.setSurfaceColor(frame.getView().getBackground());
                 }
                 else {
                 	circle.setSurfaceColor(dlgCircle.getSurfaceColor());
@@ -120,6 +138,7 @@ public class DrawingController {
             DlgDonut dlgDonut = new DlgDonut();
             dlgDonut.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgDonut.getTxtFieldPointY().setText(String.valueOf(e.getY()));
+			dlgDonut.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgDonut.getTxtFieldPointX().setEditable(false);
             dlgDonut.getTxtFieldPointY().setEditable(false);
             dlgDonut.setVisible(true);
@@ -132,48 +151,55 @@ public class DrawingController {
         } break;
             
         case "selected": {
-            selectedShape = null;
             Collections.reverse(model.getListOfShapes());
             boolean found = false; 
             Iterator<Shape> itShape = model.getListOfShapes().iterator();
             while (itShape.hasNext()) {
                 Shape tempShape = itShape.next();
                 if (tempShape.contains(e.getX(), e.getY())) {
+                    tempShape.setSelected(!tempShape.isSelected());
                     found = true; 
-                    if (!tempShape.isSelected() && selectedShape == null) {
-                        tempShape.setSelected(true);
-                        selectedShape = tempShape;
-                        break; 
-                    } else if (tempShape.isSelected()) {
-                        tempShape.setSelected(false);
-                        selectedShape = null;
-                        break;
-                    }
+                    break;
                 }
             }
             if (!found) {
                 for (Shape s : model.getListOfShapes()) {
                 	s.setSelected(false);
                 }
-                selectedShape = null;
             }
             Collections.reverse(model.getListOfShapes());
         } break;
         }
-        view.repaint();
+        frame.getView().repaint();
     }
 
     public void delete() {
         DlgDelete dlgDelete = new DlgDelete();
         dlgDelete.setVisible(true);
         if (dlgDelete.isOk()) {
-            model.getListOfShapes().removeIf(s -> s.equals(selectedShape));
-            selectedShape = null;
+            Iterator<Shape> itShape = model.getListOfShapes().iterator();
+            while (itShape.hasNext()) {
+                Shape tempShape = itShape.next();
+                if (tempShape.isSelected()) { 
+                    itShape.remove();
+                }
+            }
         }
-        view.repaint();
+        frame.getView().repaint();
     }
 
+
     public void modify() {
+    	
+    	Shape selectedShape = null;
+        for (Shape s : model.getListOfShapes()) {
+            if (s.isSelected()) {
+                selectedShape = s;
+                break;
+            }
+        }      
+        
+
         if (selectedShape instanceof Point) {
             Point temp = (Point) selectedShape;
             DlgPoint dlgPoint = new DlgPoint();
@@ -189,7 +215,7 @@ public class DrawingController {
                 temp.setSelected(false);
             }
         } else if (selectedShape instanceof Line) {
-            Line temp = (Line) selectedShape;
+            Line temp = (Line) selectedShape ;
             DlgLine dlgLine = new DlgLine();
             dlgLine.getTxtFieldStartPointX().setText(String.valueOf(temp.getStartPoint().getX()));
             dlgLine.getTxtFieldStartPointY().setText(String.valueOf(temp.getStartPoint().getY()));
@@ -268,10 +294,76 @@ public class DrawingController {
                 temp.setSelected(false);
             }
         }
-        selectedShape = null;
-        view.repaint();
+        frame.getView().repaint();
+    }
+    public void onModeChanged() {
+    	   for (Shape s : model.getListOfShapes()) {
+               s.setSelected(false);
+           } 	
+    		frame.getView().repaint();
+    	}
+    
+    public void selectMode() {
+    	if (model.getListOfShapes().size()<1) {
+    		JOptionPane.showMessageDialog(null, "There are no drawn shapes", "Error Message",JOptionPane.INFORMATION_MESSAGE);
+    		return;
+    	}
+
+    	onModeChanged();
+    	
+    }
+    public void modifyRequest() {
+    	if (model.getListOfShapes().size()<1) {
+    		JOptionPane.showMessageDialog( null,"There are no drawn shapes", "Error Message", JOptionPane.INFORMATION_MESSAGE
+    		);
+    		return;
+    		}
+        boolean isSelected = false;
+        int count=0;
+        for (Shape s : model.getListOfShapes()) {
+            if (s.isSelected()) {
+                isSelected = true;
+                break;
+            }
+        }
+         if(model.getListOfShapes().size()>1){
+        	for (Shape s : model.getListOfShapes()) {
+                if(s.isSelected()) count++;
+        	}
+        	if(count>1)
+           JOptionPane.showMessageDialog(null, "Cant modify multiple shapes", "Error Message",JOptionPane.INFORMATION_MESSAGE);
+    	   return;
+    	}
+
+    	if (!isSelected) {
+    		JOptionPane.showMessageDialog(null,"Nothing is selected", "Error Message", JOptionPane.INFORMATION_MESSAGE);
+    		return;
+    	}
+
+    	modify(); 
+    	frame.getView().repaint();
+    }
+    public void deleteRequest() {
+    	if (model.getListOfShapes().size()<1) {
+    		JOptionPane.showMessageDialog( null,"There are no drawn shapes", "Error Message", JOptionPane.INFORMATION_MESSAGE
+    		);
+    		return;
+    	}
+    	boolean isSelected = false;
+        for (Shape s : model.getListOfShapes()) {
+            if (s.isSelected()) {
+                isSelected = true;
+                break;
+            }
+        }
+    	if (!isSelected) {
+    		JOptionPane.showMessageDialog(null,"Nothing is selected", "Error Message", JOptionPane.INFORMATION_MESSAGE);
+    		return;
+    	}
+
+    	delete(); 
+    	frame.getView().repaint();
     }
 
-    public Shape getSelectedShape() { return selectedShape; }
-    public void setSelectedShape(Shape s) { this.selectedShape = s; }
+   
 }

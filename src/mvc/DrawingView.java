@@ -1,7 +1,11 @@
-package geometry;
+package mvc;
 
 import java.awt.Graphics;
+import java.util.Iterator;
+
 import javax.swing.JPanel;
+
+import geometry.Shape;
 
 public class DrawingView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -14,10 +18,9 @@ public class DrawingView extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (model != null) {
-			for (Shape s : model.getListOfShapes()) {
-				s.draw(g);
-			}
-		}
+		Iterator<Shape> it = model.getListOfShapes().iterator();
+		while(it.hasNext())
+			it.next().draw(g);
 	}
 }
+	
