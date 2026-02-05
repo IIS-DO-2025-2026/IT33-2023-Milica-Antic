@@ -31,10 +31,7 @@ public class DlgHexagon extends JDialog {
 	private JButton btnBorderColor ;
 	private Color surfaceColor;
 	private JButton btnSurfaceColor;
-private boolean isOk;
-
-
-
+	private boolean isOk;
 
 	/**
 	 * Launch the application.

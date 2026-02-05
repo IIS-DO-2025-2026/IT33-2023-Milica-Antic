@@ -44,17 +44,7 @@ public class HexagonAdapter extends Shape {
 
 	public  void draw(Graphics g) {
 		hexagon.paint(g);
-	    if (isSelected()) {
-	        g.setColor(Color.BLUE);
-	        int r = hexagon.getR();
-	        int x = hexagon.getX();
-	        int y = hexagon.getY();
-	
-	        g.drawRect(x - r - 2, y - 2, 4, 4);
-	        g.drawRect(x + r - 2, y - 2, 4, 4);
-	        g.drawRect(x - 2, y - r - 2, 4, 4);
-	        g.drawRect(x - 2, y + r - 2, 4, 4);
-    }}
+	 }
 	
 	public void moveBy(int x, int y) {
 		hexagon.setX(hexagon.getX() + x);

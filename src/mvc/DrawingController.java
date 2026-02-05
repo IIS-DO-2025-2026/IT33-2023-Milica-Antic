@@ -162,6 +162,29 @@ public class DrawingController {
                 model.add(donut);
             }
         } break;
+        case "hexagon": {
+            DlgHexagon dlgHexagon = new DlgHexagon();
+            dlgHexagon.setInitialBorderColor(model.getActiveBorderColor());
+            dlgHexagon.setInitialSurfaceColor(model.getActiveSurfaceColor());
+            dlgHexagon.getTextFieldXcoordinate().setText(String.valueOf(e.getX()));
+            dlgHexagon.getTextFieldYcoordinate().setText(String.valueOf(e.getY()));
+            dlgHexagon.getTextFieldXcoordinate().setEditable(false);
+            dlgHexagon.getTextFieldYcoordinate().setEditable(false);
+            dlgHexagon.setVisible(true);
+            if (dlgHexagon.isOk()) {
+                int x = Integer.parseInt(dlgHexagon.getTextFieldXcoordinate().getText());
+                int y = Integer.parseInt(dlgHexagon.getTextFieldYcoordinate().getText());
+                int r = Integer.parseInt(dlgHexagon.getTextFieldRadius().getText());
+
+                Hexagon h = new Hexagon(x, y, r);
+                h.setBorderColor(dlgHexagon.getBackColor() != null ? dlgHexagon.getBackColor() : model.getActiveBorderColor());
+                h.setAreaColor(dlgHexagon.getSurfaceColor() != null ? dlgHexagon.getSurfaceColor() : model.getActiveSurfaceColor());
+
+                HexagonAdapter hexAdapter = new HexagonAdapter(h);
+                model.add(hexAdapter);
+            }
+        } break;
+            
 
         case "selected": {
             Collections.reverse(model.getListOfShapes());
@@ -315,6 +338,26 @@ public class DrawingController {
                 	temp.setSurfaceColor(dlgCircle.getSurfaceColor());
                 }
                 //temp.setSelected(false);
+            }
+        }else if (selectedShape instanceof HexagonAdapter) {
+            HexagonAdapter temp = (HexagonAdapter) selectedShape;
+            DlgHexagon dlgHexagon = new DlgHexagon();
+            dlgHexagon.getTextFieldXcoordinate().setText(String.valueOf(temp.getX()));
+            dlgHexagon.getTextFieldYcoordinate().setText(String.valueOf(temp.getY()));
+            dlgHexagon.getTextFieldRadius().setText(String.valueOf(temp.getR()));
+            dlgHexagon.setInitialBorderColor(temp.getBorderColor());
+            dlgHexagon.setInitialSurfaceColor(temp.getSurfaceColor());
+            dlgHexagon.setVisible(true);
+            if (dlgHexagon.isOk()) {
+                temp.setX(Integer.parseInt(dlgHexagon.getTextFieldXcoordinate().getText()));
+                temp.setY(Integer.parseInt(dlgHexagon.getTextFieldYcoordinate().getText()));
+                temp.setR(Integer.parseInt(dlgHexagon.getTextFieldRadius().getText()));
+                if (dlgHexagon.getBackColor() != null) {
+                    temp.setBorderColor(dlgHexagon.getBackColor());
+                }
+                if (dlgHexagon.getSurfaceColor() != null) {
+                    temp.setSurfaceColor(dlgHexagon.getSurfaceColor());
+                }
             }
         }
 

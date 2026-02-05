@@ -20,7 +20,7 @@ public class Application {
 						
 					frame.setTitle("Antic Milica IT33/2023");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frame.setBounds(100, 100, 600, 400);
+					frame.setBounds(100, 100, 650, 400);
 					
 					frame.setVisible(true);
 
