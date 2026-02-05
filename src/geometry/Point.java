@@ -123,5 +123,12 @@ public class Point extends Shape {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Point clone() {
+	    Point copy = new Point(this.x, this.y, this.isSelected());
+	    copy.setBorderColor(this.borderColor);
+	    return copy;
+	}
+
 
 }

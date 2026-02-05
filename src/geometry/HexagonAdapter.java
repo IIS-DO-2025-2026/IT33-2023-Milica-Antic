@@ -118,5 +118,12 @@ public class HexagonAdapter extends Shape {
     public void setSelected(boolean selected) {
         hexagon.setSelected(selected);
     }
+    @Override
+    public HexagonAdapter clone() {
+        HexagonAdapter copy = new HexagonAdapter(hexagon.getX(),hexagon.getY(),hexagon.getR(),hexagon.isSelected(),hexagon.getBorderColor(),hexagon.getAreaColor());
+
+        return copy;
+    }
+
 }
 

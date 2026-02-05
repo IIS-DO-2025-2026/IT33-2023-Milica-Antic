@@ -95,7 +95,6 @@ public class DrawingController {
             dlgRectangle.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgRectangle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgRectangle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
-			dlgRectangle.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgRectangle.getTxtFieldPointX().setEditable(false);
             dlgRectangle.getTxtFieldPointY().setEditable(false);
             dlgRectangle.setVisible(true);
@@ -123,7 +122,6 @@ public class DrawingController {
             dlgCircle.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgCircle.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgCircle.getTxtFieldPointY().setText(String.valueOf(e.getY()));
-			dlgCircle.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgCircle.getTxtFieldPointX().setEditable(false);
             dlgCircle.getTxtFieldPointY().setEditable(false);
             dlgCircle.setVisible(true);
@@ -151,7 +149,6 @@ public class DrawingController {
             dlgDonut.setInitialSurfaceColor(model.getActiveSurfaceColor());
             dlgDonut.getTxtFieldPointX().setText(String.valueOf(e.getX()));
             dlgDonut.getTxtFieldPointY().setText(String.valueOf(e.getY()));
-			dlgDonut.getLblChooseASurfaceColor().setForeground(Color.white);
             dlgDonut.getTxtFieldPointX().setEditable(false);
             dlgDonut.getTxtFieldPointY().setEditable(false);
             dlgDonut.setVisible(true);

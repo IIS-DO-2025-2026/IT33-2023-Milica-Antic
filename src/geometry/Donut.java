@@ -136,4 +136,12 @@ public class Donut extends Circle {
 	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
 	}
+	@Override
+	public Donut clone() {
+	    Donut copy = new Donut(this.getCenter().clone(),this.getRadius(),this.getInnerRadius(),this.isSelected());
+	    copy.setBorderColor(this.getBorderColor());
+	    copy.setSurfaceColor(this.getSurfaceColor());
+	    return copy;
+	}
+
 }

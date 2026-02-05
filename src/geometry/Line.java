@@ -113,5 +113,12 @@ public class Line extends Shape {
 	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
 	}
+	
+	@Override
+	public Line clone() {
+	    Line copy = new Line(this.startPoint.clone(),this.endPoint.clone(),this.isSelected());
+	    copy.setBorderColor(this.borderColor);
+	    return copy;
+	}
 
 }

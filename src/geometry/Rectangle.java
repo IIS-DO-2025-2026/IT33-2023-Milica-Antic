@@ -147,5 +147,13 @@ public class Rectangle extends Shape {
 	public String toString() {
 		return "Upper left point: " + upperLeftPoint + ", width = " + width + ", height = " + height;
 	}
+	@Override
+	public Rectangle clone() {
+	    Rectangle copy = new Rectangle(this.upperLeftPoint.clone(),this.width,this.height,this.isSelected());
+	    copy.setBorderColor(this.borderColor);
+	    copy.setSurfaceColor(this.surfaceColor);
+	    return copy;
+	}
+
 	
 }

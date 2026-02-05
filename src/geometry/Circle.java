@@ -129,5 +129,12 @@ public class Circle extends Shape {
 	public String toString() {
 		return "center: " + center + ", radius = " + radius;
 	}
+	@Override
+	public Circle clone() {
+	    Circle copy = new Circle(this.center.clone(),this.radius,this.isSelected());
+	    copy.setBorderColor(this.borderColor);
+	    copy.setSurfaceColor(this.surfaceColor);
+	    return copy;
+	}
 
 }

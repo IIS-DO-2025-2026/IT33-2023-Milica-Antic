@@ -34,6 +34,7 @@ public abstract class Shape implements Moveable, Comparable {
 	protected abstract Color getSurfaceColor();
 
 
+	public abstract Shape clone();
 
 
 
