@@ -131,11 +131,25 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		gbc_tglbtnDonut.gridy = 0;
 		pnlNorth.add(tglbtnDonut, gbc_tglbtnDonut);
 		
+		JToggleButton tglbtnHexagon = new JToggleButton("Hexagon");
+		group.add(tglbtnHexagon);
+		tglbtnHexagon.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        word = "hexagon";      
+		        controller.onModeChanged();
+		    }
+		});
+		GridBagConstraints gbc_tglbtnHexagon = new GridBagConstraints();
+		gbc_tglbtnHexagon.insets = new Insets(0, 0, 0, 5);
+		gbc_tglbtnHexagon.gridx = 5;  
+		gbc_tglbtnHexagon.gridy = 0;
+		pnlNorth.add(tglbtnHexagon, gbc_tglbtnHexagon);
+		
 		JLabel lblBorder = new JLabel("Border:");
 		GridBagConstraints gbc_lblBorder = new GridBagConstraints();
 		gbc_lblBorder.anchor = GridBagConstraints.EAST;
 		gbc_lblBorder.insets = new Insets(0, 0, 0, 5);
-		gbc_lblBorder.gridx = 5;
+		gbc_lblBorder.gridx = 6;
 		gbc_lblBorder.gridy = 0;
 		pnlNorth.add(lblBorder, gbc_lblBorder);
 		
@@ -156,7 +170,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		});
 		GridBagConstraints gbc_tglbtnBorderColor = new GridBagConstraints();
 		gbc_tglbtnBorderColor.insets = new Insets(0, 0, 0, 5);
-		gbc_tglbtnBorderColor.gridx = 6;
+		gbc_tglbtnBorderColor.gridx = 7;
 		gbc_tglbtnBorderColor.gridy = 0;
 		pnlNorth.add(btnBorderColor, gbc_tglbtnBorderColor);
 		
@@ -164,7 +178,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		GridBagConstraints gbc_lblSurface = new GridBagConstraints();
 		gbc_lblSurface.anchor = GridBagConstraints.EAST;
 		gbc_lblSurface.insets = new Insets(0, 0, 0, 5);
-		gbc_lblSurface.gridx = 7;
+		gbc_lblSurface.gridx = 8;
 		gbc_lblSurface.gridy = 0;
 		pnlNorth.add(lblSurface, gbc_lblSurface);
 		
@@ -183,7 +197,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		    });
 		GridBagConstraints gbc_tglbtnSurfaceColor = new GridBagConstraints();
 		gbc_tglbtnSurfaceColor.insets = new Insets(0, 0, 0, 6);
-		gbc_tglbtnSurfaceColor.gridx = 8;
+		gbc_tglbtnSurfaceColor.gridx = 9;
 		gbc_tglbtnSurfaceColor.gridy = 0;
 		pnlNorth.add(btnSurfaceColor, gbc_tglbtnSurfaceColor);
 

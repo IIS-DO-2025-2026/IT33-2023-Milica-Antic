@@ -11,14 +11,17 @@ import geometry.Circle;
 import geometry.DlgCircle;
 import geometry.DlgDelete;
 import geometry.DlgDonut;
+import geometry.DlgHexagon;
 import geometry.DlgLine;
 import geometry.DlgPoint;
 import geometry.DlgRectangle;
 import geometry.Donut;
+import geometry.HexagonAdapter;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
+import hexagon.Hexagon;
 
 
 
@@ -159,7 +162,7 @@ public class DrawingController {
                 model.add(donut);
             }
         } break;
-            
+
         case "selected": {
             Collections.reverse(model.getListOfShapes());
             boolean found = false; 
@@ -314,6 +317,7 @@ public class DrawingController {
                 //temp.setSelected(false);
             }
         }
+
         frame.getView().repaint();
     }
     public void onModeChanged() {

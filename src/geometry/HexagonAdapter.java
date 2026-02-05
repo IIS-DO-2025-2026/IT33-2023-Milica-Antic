@@ -12,6 +12,9 @@ public class HexagonAdapter extends Shape {
 	public HexagonAdapter() {
 		
 	}
+	  public HexagonAdapter(Hexagon hexagon) {
+	        this.hexagon = hexagon;
+	    }	
 	public HexagonAdapter(int x,int y, int r) {
         hexagon = new Hexagon(x, y, r);
 
@@ -101,6 +104,13 @@ public class HexagonAdapter extends Shape {
         return hexagon.getY();
     }
 
+    public void setX(int x) {
+        hexagon.setX(x);
+    }
+
+    public void setY(int y) {
+         hexagon.setY(y);
+    }
     public int getR() {
         return hexagon.getR();
     }
