@@ -1,8 +1,10 @@
 package archived;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import geometry.Donut;
+import geometry.HexagonAdapter;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
@@ -111,6 +113,31 @@ public class Test {
 		Donut fourthDonut=new Donut(ninthPoint,4,3);
 		System.out.println(thirdDonut.compareTo(fourthDonut));
 		
+		HexagonAdapter hexagon=new HexagonAdapter(1,5,30);
+		Color c=Color.black;
+		System.out.println(hexagon.toString());
+		HexagonAdapter hexagon1=new HexagonAdapter(1,5,30,true,c,c);
+		System.out.println(hexagon1.isSelected());
+		System.out.println(hexagon1.getBorderColor());
+		System.out.println(hexagon1.getSurfaceColor());
+		hexagon.setBorderColor(c);
+		hexagon.setSurfaceColor(c);
+		System.out.println(hexagon.getBorderColor());
+		System.out.println(hexagon.getSurfaceColor());
+		System.out.println(hexagon1.contains(1,2));
+		HexagonAdapter hexagon2=new HexagonAdapter(2,6,20,true,c,c);
+		System.out.println(hexagon.compareTo(hexagon2)); //uporedjuje ih po r
+		System.out.println(hexagon1.equals(hexagon));
+		HexagonAdapter hexagon3=new HexagonAdapter(2,6,20,true,c,c);
+		System.out.println(hexagon2.equals(hexagon3));
+		hexagon.moveTo(2, 6);
+		System.out.println(hexagon.toString());
+		hexagon.moveBy(1, 1);
+		System.out.println(hexagon.toString());
+		System.out.println(hexagon.getR());
+		System.out.println(hexagon.getX());
+		System.out.println(hexagon.getY());
+
 	}
 
 }
