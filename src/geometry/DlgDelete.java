@@ -62,8 +62,7 @@ public class DlgDelete extends JDialog {
 			gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblQuestion = new JLabel("Are you sure you want to delete the selected shape?"
-						+ "If yes press ok button, otherwise press cancel button. ");
+				JLabel lblQuestion = new JLabel("<html>Are you sure you want to delete the selected shapes?<br>If yes press ok button, otherwise press cancel button.<html>");
 				GridBagConstraints gbc_lblQuestion = new GridBagConstraints();
 				gbc_lblQuestion.gridx = 0;
 				gbc_lblQuestion.gridy = 0;

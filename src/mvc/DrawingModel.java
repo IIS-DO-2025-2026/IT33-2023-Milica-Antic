@@ -33,9 +33,7 @@ public class DrawingModel {
         }
         return count;
     }
-	public void selectionChanged() {
-	    notifyObservers();
-	}
+	
 
 	public void addObserver(ModelObserver observer) {
         observers.add(observer);
@@ -48,10 +46,8 @@ public class DrawingModel {
     public void notifyObservers() {
         for (ModelObserver o : observers) {
             o.update();
-        }
-        
-
-    	}	
+           }
+        }	
     public Color getActiveBorderColor() {
 		return activeBorderColor;
 	}
@@ -67,6 +63,5 @@ public class DrawingModel {
 	public void setActiveSurfaceColor(Color activeSurfaceColor) {
 		this.activeSurfaceColor = activeSurfaceColor;
 	}
-
 	
     }

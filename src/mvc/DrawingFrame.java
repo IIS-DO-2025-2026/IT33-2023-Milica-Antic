@@ -34,6 +34,10 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 	private JButton btnDelete;
 	private JToggleButton  btnBorderColor;
 	private JToggleButton btnSurfaceColor;
+	private JToggleButton btnSelect;
+	private JButton btnUndo;
+	private JButton btnRedo;
+
 
 
 	/**
@@ -158,6 +162,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		btnBorderColor.setPreferredSize(new Dimension(20,20));
 		btnBorderColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 			    Color newColor = JColorChooser.showDialog(null,"Choose border color",btnBorderColor.getBackground() );
 
 			    if (newColor != null) {
@@ -165,6 +170,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		            controller.changeBorderColor(newColor);
 		        }
 		        btnBorderColor.setSelected(false);
+
 
 			}
 		});
@@ -183,7 +189,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		pnlNorth.add(lblSurface, gbc_lblSurface);
 		
 		
-		 btnSurfaceColor = new JToggleButton("");
+		btnSurfaceColor = new JToggleButton("");
 		btnSurfaceColor.setBackground(Color.white);
 		btnSurfaceColor.setPreferredSize(new Dimension(20,20));
 		btnSurfaceColor.addActionListener(e -> {
@@ -193,6 +199,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		            controller.changeSurfaceColor(newColor);
 		        }
 		        btnSurfaceColor.setSelected(false);
+
 
 		    });
 		GridBagConstraints gbc_tglbtnSurfaceColor = new GridBagConstraints();
@@ -212,12 +219,14 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		gbl_pnlSouth.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		pnlSouth.setLayout(gbl_pnlSouth);
 
-		JToggleButton tglbtnSelect = new JToggleButton("Select");
-		group.add(tglbtnSelect);
-		tglbtnSelect.addActionListener(new ActionListener() {	
+		btnSelect = new JToggleButton("Select");
+		group.add(btnSelect);
+		btnSelect.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 					word = "selected";
-					controller.selectMode();
+					controller.onModeChanged();
+
+
 			}
 			
 		});
@@ -225,14 +234,14 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		gbc_tglbtnSelect.insets = new Insets(0, 0, 0, 5);
 		gbc_tglbtnSelect.gridx = 0;
 		gbc_tglbtnSelect.gridy = 1;
-		pnlSouth.add(tglbtnSelect, gbc_tglbtnSelect);
+		pnlSouth.add(btnSelect, gbc_tglbtnSelect);
 
-		 btnModify = new JButton("Modify");
+		btnModify = new JButton("Modify");
 		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			;
 						word = "selected";
-						controller.modifyRequest();
+						controller.modify();
 
 			}
 		});
@@ -247,7 +256,7 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 			public void actionPerformed(ActionEvent e) {
 				
 						word = "selected";
-						controller.deleteRequest();
+						controller.delete();
 
 			}
 		});
@@ -255,10 +264,42 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 1;
 		pnlSouth.add(btnDelete, gbc_btnDelete);
+		
+		  btnUndo = new JButton("Undo");
+			btnUndo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+							controller.undo();
+
+				}
+			});
+			GridBagConstraints gbc_btnUndo = new GridBagConstraints();
+			gbc_btnUndo.gridx = 3;
+			gbc_btnUndo.gridy = 1;
+			pnlSouth.add(btnUndo, gbc_btnUndo);
+			
+			
+			 btnRedo = new JButton("Redo");
+			btnRedo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+								controller.redo();
+
+					}
+				});
+				GridBagConstraints gbc_btnRedo = new GridBagConstraints();
+				gbc_btnRedo.gridx = 4;
+				gbc_btnRedo.gridy = 1;
+				pnlSouth.add(btnRedo, gbc_btnRedo);
+		
+				btnModify.setEnabled(false);
+			    btnDelete.setEnabled(false);
+			    btnSelect.setEnabled(false);
+			    btnUndo.setEnabled(false);
+			    btnRedo.setEnabled(false);
+		
 		view.setBackground(new Color(255, 255, 255));
 		
-		btnModify.setVisible(false);
-		btnDelete.setVisible(false);
+	
 
 		contentPane.add(view, BorderLayout.CENTER);
 		view.addMouseListener(new MouseAdapter() {
@@ -285,11 +326,18 @@ public class DrawingFrame extends JFrame implements ModelObserver{
 	}
 	
 	@Override
+	
 	public void update() {
 	    int selectedCount = controller.getSelectedCount();
 
-	    btnModify.setVisible(selectedCount == 1);
-	    btnDelete.setVisible(selectedCount >= 1);
+	    btnModify.setEnabled(selectedCount == 1);
+	    btnDelete.setEnabled(selectedCount >= 1);
+	    btnSelect.setEnabled(controller. hasShapes());
+	    btnUndo.setEnabled(!controller.getUndoStack().isEmpty());
+	    btnRedo.setEnabled(!controller.getRedoStack().isEmpty());
+	    view.repaint();
+
 	}
+	
 
 }

@@ -9,7 +9,7 @@ public class Rectangle extends Shape {
 	private Point upperLeftPoint;
 	private int width;
 	private int height;
-	private boolean selected;
+	//private boolean selected;
 	private Color borderColor;
 	private Color surfaceColor;
 

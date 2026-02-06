@@ -7,7 +7,7 @@ public class AddShapeCommand implements Command {
 	private DrawingModel model;
 	private Shape shape;
 	
-	public AddShapeCommand(DrawingModel model, Shape point) {
+	public AddShapeCommand(DrawingModel model, Shape shape) {
 		this.model = model;
 		this.shape = shape;
 	}
