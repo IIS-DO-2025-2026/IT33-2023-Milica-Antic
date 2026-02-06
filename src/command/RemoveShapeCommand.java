@@ -28,4 +28,14 @@ public class RemoveShapeCommand implements Command {
             model.add(s);
         }
 	}
-}
+	public String getShapesDescription() {
+	    String description = "";
+	    for (Shape shape : removedShapes) {
+	        description= description+ shape.toString() + "; ";
+	    }
+	    return description;
+	}
+
+	}
+
+

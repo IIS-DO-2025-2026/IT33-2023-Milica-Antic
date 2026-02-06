@@ -32,4 +32,12 @@ public class UpdateShapeCommand implements Command {
         model.getListOfShapes().set(index, state);
         original = state;
     }
+    public Shape getOriginal() {
+        return oldState;
+    }
+
+    public Shape getNewState() {
+        return newState;
+    }
+
 }

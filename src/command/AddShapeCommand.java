@@ -23,4 +23,8 @@ public class AddShapeCommand implements Command {
 		model.remove(shape);
 
 	}
+	public Shape getShape() {
+	    return shape;
+	}
+
 }

@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Stack;
 	
 	import javax.swing.JOptionPane;
-	
-	import geometry.Circle;
+import javax.swing.JTextArea;
+
+import geometry.Circle;
 	import geometry.DlgCircle;
 	import geometry.DlgDelete;
 	import geometry.DlgDonut;
@@ -25,10 +26,11 @@ import java.util.Stack;
 	import geometry.Rectangle;
 	import geometry.Shape;
 	import hexagon.Hexagon;
+	import log.CommandLogger;
 	import command.AddShapeCommand;
 	import command.Command;
-import command.RemoveShapeCommand;
-import command.UpdateShapeCommand;
+	import command.RemoveShapeCommand;
+	import command.UpdateShapeCommand;
 	
 	public class DrawingController {
 		
@@ -37,6 +39,8 @@ import command.UpdateShapeCommand;
 	    private Point point1 = null;
 		private Stack<Command> undoStack = new Stack<>();
 	    private Stack<Command> redoStack = new Stack<>();
+	    private CommandLogger logger = new CommandLogger();
+
 	
 	    public DrawingController(DrawingModel model, DrawingFrame frame) {
 	        this.model = model;
@@ -63,6 +67,7 @@ import command.UpdateShapeCommand;
 	                	point.setBorderColor(dlgPoint.getBackColor());
 	                }
 	                executeCommand( new AddShapeCommand(model, point));
+
 	            }
 	        } break;
 	
@@ -402,7 +407,10 @@ import command.UpdateShapeCommand;
 	    public void executeCommand(Command command) {
 	        undoStack.push(command);
 	    	command.execute();
+	    	logger.logCommand(command);
+	    	frame.updateLogArea(logger.getLog());
 	        redoStack.clear(); 
+	        model.notifyObservers();
 	    }
 	
 	    public void undo() {
@@ -425,6 +433,7 @@ import command.UpdateShapeCommand;
 	        }
 	        
 	    }
+	 
 
 		public boolean hasShapes()
 		{
