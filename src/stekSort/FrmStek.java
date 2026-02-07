@@ -5,32 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Panel;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
-
 import java.awt.GridBagConstraints;
-import javax.swing.JToggleButton;
 import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
-import java.util.Stack;
 import java.awt.event.ActionEvent;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class FrmStek extends JFrame {
 

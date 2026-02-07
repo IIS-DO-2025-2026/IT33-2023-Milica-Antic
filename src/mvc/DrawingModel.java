@@ -1,10 +1,10 @@
-package mvc;
-
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import observer.ModelObserver;
-import geometry.Shape;
+	package mvc;
+	
+	import java.awt.Color;
+	import java.util.ArrayList;
+	import java.util.List;
+	import observer.ModelObserver;
+	import geometry.Shape;
 
 public class DrawingModel {
 	private ArrayList<Shape> listOfShapes = new ArrayList<>();

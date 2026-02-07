@@ -2,7 +2,6 @@ package log;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import command.AddShapeCommand;
 import command.Command;
 import command.RemoveShapeCommand;

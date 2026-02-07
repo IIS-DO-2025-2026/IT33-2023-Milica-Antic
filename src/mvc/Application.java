@@ -1,8 +1,8 @@
 package mvc;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+
 public class Application {
 	/**
 	 * Launch the application.

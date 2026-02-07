@@ -10,19 +10,17 @@
 	import java.awt.event.ActionListener;
 	import java.awt.event.MouseAdapter;
 	import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.ButtonGroup;
+	import java.util.List;
+	import javax.swing.ButtonGroup;
 	import javax.swing.JButton;
 	import javax.swing.JColorChooser;
 	import javax.swing.JFrame;
 	import javax.swing.JLabel;
 	import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
+	import javax.swing.JScrollPane;
+	import javax.swing.JTextArea;
+	import javax.swing.JToggleButton;
 	import javax.swing.border.EmptyBorder;
-	
 	import observer.ModelObserver;
 	
 	public class DrawingFrame extends JFrame implements ModelObserver{

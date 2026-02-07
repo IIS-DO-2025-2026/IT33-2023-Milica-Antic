@@ -2,7 +2,6 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import hexagon.Hexagon; 
 
 public class HexagonAdapter extends Shape {

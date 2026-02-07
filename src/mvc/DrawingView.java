@@ -2,9 +2,7 @@ package mvc;
 
 import java.awt.Graphics;
 import java.util.Iterator;
-
 import javax.swing.JPanel;
-
 import geometry.Shape;
 
 public class DrawingView extends JPanel {
