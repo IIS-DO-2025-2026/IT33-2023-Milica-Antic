@@ -98,9 +98,9 @@ public class Line extends Shape implements Serializable{
 	}
 
 	public String toString() {
-		return this.startPoint + "-->" + this.endPoint.toString();
+		return "LINE;"+"x1="+this.startPoint.getX() + ";"+"y1="+this.startPoint.getY()+";" +"x2="+ this.endPoint.getX()+";"+"y2="+this.endPoint.getY()+";"+"border="+colorToString(borderColor);
 	}
-
+	
 	@Override
 	protected Color getSurfaceColor() {
 		// TODO Auto-generated method stub

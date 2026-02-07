@@ -36,6 +36,12 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 
 
 	public abstract Shape clone();
+	public static String colorToString(Color color) {
+		if (color == null) {
+	        return "0,0,0"; 
+	    }
+	    return color.getRed() + "," + color.getGreen() + "," + color.getBlue();
+	}
 
 
 

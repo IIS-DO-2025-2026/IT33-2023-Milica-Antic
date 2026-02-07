@@ -118,7 +118,7 @@ public class Donut extends Circle implements Serializable {
 
 	public String toString() {
 
-		return super.toString() + ", innerRadius = " + innerRadius;
+		return "DONUT;"+"x=" + getCenter().getX() + ";" + "y=" + getCenter().getY() + ";" + "outer=" +getRadius()+";"+ "inner=" + innerRadius+";"+"border="+colorToString(borderColor)+";"+"fill="+colorToString(surfaceColor);
 	}
 
 	public Color getSurfaceColor() {

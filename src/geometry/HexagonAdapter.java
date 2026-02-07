@@ -81,7 +81,7 @@ public class HexagonAdapter extends Shape implements Serializable{
         return 0;
 	}
 	public  String toString() {
-		return "Point x=" + hexagon.getX() + ", point y=" + hexagon.getY() + ", radius=" + hexagon.getR() ;
+		return "HEXAGON;"+ "x=" +hexagon.getX() + ";" +"y=" + hexagon.getY() + ";" +"r=" + getR() + ";" +"border="+colorToString(this.getBorderColor())+";"+"fill="+colorToString(this.getSurfaceColor());
 	}
 	public Hexagon getHexagon() {
         return hexagon;

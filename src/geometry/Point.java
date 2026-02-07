@@ -116,8 +116,9 @@ public class Point extends Shape implements Serializable {
 	}
 
 	public String toString() {
-		return "(" + this.x + "," + this.y + ")";
+		return "POINT;"+"x=" + this.x + ";"+"y=" + this.y + ";"+"border="+colorToString(this.getBorderColor());
 	}
+
 
 	@Override
 	protected Color getSurfaceColor() {

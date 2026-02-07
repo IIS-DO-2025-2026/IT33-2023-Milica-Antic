@@ -144,8 +144,8 @@ public class Rectangle extends Shape implements Serializable {
 		this.borderColor = borderColor;
 	}
 
-	public String toString() {
-		return "Upper left point: " + upperLeftPoint + ", width = " + width + ", height = " + height;
+	public String toString() {	
+		return "RECTANGLE;"+"x=" + upperLeftPoint.getX() + ";" + "y=" + upperLeftPoint.getY() + ";" +"width=" + width + ";"+"height=" + height+";"+"border="+colorToString(borderColor)+";"+"fill="+colorToString(surfaceColor);
 	}
 	@Override
 	public Rectangle clone() {

@@ -128,7 +128,7 @@ public class Circle extends Shape implements Serializable {
 	}
 
 	public String toString() {
-		return "center: " + center + ", radius = " + radius;
+		return "CIRCLE;"+"x=" + center.getX() + ";" +"y=" + center.getY() + ";" +"r=" + radius + ";" +"border="+colorToString(borderColor)+";"+"fill="+colorToString(surfaceColor);
 	}
 	@Override
 	public Circle clone() {

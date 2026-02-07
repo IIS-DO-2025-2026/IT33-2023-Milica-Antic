@@ -438,13 +438,13 @@ import strategy.SaveContext;
 	    	SaveContext context = new SaveContext();
 
 	        context.setStrategy(new strategy.TextLogSave(this));
-	        context.save("C:\\Users\\Milica\\Desktop\\log.txt");
+	        context.save("C:\\Users\\Milica\\Desktop\\textlog.txt");
 
 	    }
 	    private void autoSaveBinary() {
 	        SaveContext context = new SaveContext();
 	        context.setStrategy(new BinarySave(this));
-	        context.save("C:\\Users\\Milica\\Desktop\\log.txt");
+	        context.save("C:\\Users\\Milica\\Desktop\\binlog.txt");
 	    }
 
   public CommandLogger getCommandLogger() {

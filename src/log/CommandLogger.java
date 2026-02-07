@@ -16,11 +16,11 @@ public class CommandLogger {
         String text = "";
         if (c instanceof AddShapeCommand addCmd) {
             Shape s = addCmd.getShape();
-            text = "AddShape: " + s.toString();
+            text = "ADD;" + s.toString();
         } else if (c instanceof RemoveShapeCommand removeCmd) {
-        	text = "RemoveShape: " + removeCmd.getShapesDescription();
+        	text = "REMOVE;" + removeCmd.getShapesDescription();
         } else if (c instanceof UpdateShapeCommand updateCmd) {
-        	text = "UpdateShape: " + updateCmd.getOriginal().toString() +
+        	text = "UPDATE;" + updateCmd.getOriginal().toString() +
                     " -> " + updateCmd.getNewState().toString();
         } 
 
