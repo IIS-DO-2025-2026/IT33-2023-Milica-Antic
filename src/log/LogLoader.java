@@ -209,7 +209,6 @@ public class LogLoader {
         if (end == -1) end = str.length();
 
         try {
-            // trim samo vrednost između key i ; 
             return Integer.parseInt(str.substring(start + key.length(), end).trim());
         } catch (NumberFormatException e) {
             return 0;

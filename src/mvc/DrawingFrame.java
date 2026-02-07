@@ -47,6 +47,9 @@ import observer.ModelObserver;
 		private JButton btnToFront ;
 		private JButton btnBringToFront;
 		private JButton btnBringToBack;
+		private boolean loadAllowed = true;
+		private JButton btnLoadLog; 
+		private JButton btnLoadBinLog;
 	
 	
 		
@@ -304,7 +307,7 @@ import observer.ModelObserver;
 					gbc_btnRedo.gridy = 1;
 					pnlSouth.add(btnRedo, gbc_btnRedo);
 					
-					 JButton btnLoadLog = new JButton("Load log");
+					  btnLoadLog = new JButton("Load log");
 					 btnLoadLog.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 								    loadLogWithUserConfirmation();
@@ -317,7 +320,7 @@ import observer.ModelObserver;
 								gbc_btnLoadLog.gridy = 1;
 								pnlSouth.add(btnLoadLog, gbc_btnLoadLog);
 								
-						JButton btnLoadBinLog = new JButton("Load pic");
+						 btnLoadBinLog = new JButton("Load pic");
 						btnLoadBinLog.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							
@@ -395,6 +398,7 @@ import observer.ModelObserver;
 				    btnToFront.setEnabled(false);
 				    btnBringToFront.setEnabled(false);
 				    btnBringToBack.setEnabled(false);
+				   
 			
 			view.setBackground(new Color(255, 255, 255));
 		
@@ -432,17 +436,22 @@ import observer.ModelObserver;
 		
 		public void update() {
 		    int selectedCount = controller.getSelectedCount();
+
 	
 		    btnModify.setEnabled(selectedCount == 1);
 		    btnDelete.setEnabled(selectedCount >= 1);
 		    btnSelect.setEnabled(controller. hasShapes());
 		    btnUndo.setEnabled(!controller.getUndoStack().isEmpty());
 		    btnRedo.setEnabled(!controller.getRedoStack().isEmpty());
+		    btnLoadLog.setEnabled(loadAllowed);
+		    btnLoadBinLog.setEnabled(loadAllowed);
 		    if(controller.getCount()>=2) {
 		    btnToBack.setEnabled(selectedCount == 1);
 		    btnToFront.setEnabled(selectedCount == 1);
 		    btnBringToFront.setEnabled(selectedCount == 1);
 		    btnBringToBack.setEnabled(selectedCount == 1);}
+		    loadAllowed = false;
+
 		    view.repaint();
 	
 		}
@@ -467,6 +476,8 @@ import observer.ModelObserver;
 			    }
 
 			    updateLogArea(controller.getCommandLogger().getLog());
+			    loadAllowed = false;
+update();
 			}
 		
 	     private void loadBinaryFile() {
@@ -481,5 +492,7 @@ import observer.ModelObserver;
 	    	        updateLogArea(controller.getCommandLogger().getLog());
 	    	        view.repaint();
 	    	    }
+	    	    loadAllowed = false;
+update();
 	    	}
 	}
