@@ -1,9 +1,8 @@
 package geometry;
+
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-
 import java.awt.Color;
 import java.awt.Graphics;
 

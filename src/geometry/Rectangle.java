@@ -3,7 +3,6 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JButton;
 
 public class Rectangle extends Shape {
 	private Point upperLeftPoint;

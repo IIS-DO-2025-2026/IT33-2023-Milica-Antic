@@ -2,16 +2,12 @@
 	
 	import java.awt.Color;
 	import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
+	import java.util.ArrayList;
+	import java.util.Collections;
 	import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
-	
-	import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-
-import geometry.Circle;
+	import java.util.List;
+	import java.util.Stack;
+	import geometry.Circle;
 	import geometry.DlgCircle;
 	import geometry.DlgDelete;
 	import geometry.DlgDonut;
@@ -27,6 +23,7 @@ import geometry.Circle;
 	import geometry.Shape;
 	import hexagon.Hexagon;
 	import log.CommandLogger;
+	import strategy.SaveContext;
 	import command.AddShapeCommand;
 	import command.Command;
 	import command.RemoveShapeCommand;
@@ -411,6 +408,8 @@ import geometry.Circle;
 	    	frame.updateLogArea(logger.getLog());
 	        redoStack.clear(); 
 	        model.notifyObservers();
+	        autoSave();
+
 	    }
 	
 	    public void undo() {
@@ -433,7 +432,17 @@ import geometry.Circle;
 	        }
 	        
 	    }
-	 
+	    private void autoSave() {
+	    	SaveContext context = new SaveContext();
+
+	        context.setStrategy(new strategy.TextLogSave(this));
+	        context.save("C:\\Users\\Milica\\Desktop\\log.txt");
+
+	    }
+  public CommandLogger getCommandLogger() {
+	        return logger;
+	    }
+
 
 		public boolean hasShapes()
 		{
