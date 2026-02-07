@@ -164,4 +164,24 @@ public class LogLoader {
 
         return new Color(r, g, b);
     }
+    
+    public void loadBinaryFile(String path) {
+        if (controller == null) {
+        	return;
+        }
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            Object obj = ois.readObject();
+            if (obj instanceof List<?>) {
+                List<?> shapes = (List<?>) obj;
+                for (Object o : shapes) {
+                    if (o instanceof Shape) {
+                        controller.addShape((Shape) o);
+                    }
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

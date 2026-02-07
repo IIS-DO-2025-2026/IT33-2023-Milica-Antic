@@ -166,7 +166,6 @@ public class DlgCircle extends JDialog {
 			btnSurfaceColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					surfaceColor = JColorChooser.showDialog(null, "Choose background color", Color.white);
-					lblChooseASurfaceColor.setForeground(Color.white);
 					if (surfaceColor != null) {
 			            btnSurfaceColor.setBackground(surfaceColor);
 			            btnSurfaceColor.setSelected(false);

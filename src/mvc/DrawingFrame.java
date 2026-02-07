@@ -14,7 +14,8 @@
 	import javax.swing.ButtonGroup;
 	import javax.swing.JButton;
 	import javax.swing.JColorChooser;
-	import javax.swing.JFrame;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 	import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -218,9 +219,9 @@ import observer.ModelObserver;
 			JPanel pnlSouth = new JPanel();
 			contentPane.add(pnlSouth, BorderLayout.SOUTH);
 			GridBagLayout gbl_pnlSouth = new GridBagLayout();
-			gbl_pnlSouth.columnWidths = new int[]{0, 0, 0, 0,0};
+			gbl_pnlSouth.columnWidths = new int[]{0, 0, 0, 0,0,0,0};
 			gbl_pnlSouth.rowHeights = new int[]{0, 0, 0};
-			gbl_pnlSouth.columnWeights = new double[]{0.0, 0.0, 0.0,0,0, Double.MIN_VALUE};
+			gbl_pnlSouth.columnWeights = new double[]{0.0, 0.0, 0.0,0,0,0,0, Double.MIN_VALUE};
 			gbl_pnlSouth.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			pnlSouth.setLayout(gbl_pnlSouth);
 	
@@ -306,11 +307,24 @@ import observer.ModelObserver;
 			
 								}
 							});
-							GridBagConstraints gbc_btnLoadLog = new GridBagConstraints();
-							gbc_btnLoadLog.insets = new Insets(0, 0, 0, 5);
-							gbc_btnLoadLog.gridx = 5;
-							gbc_btnLoadLog.gridy = 1;
-							pnlSouth.add(btnLoadLog, gbc_btnLoadLog);
+								GridBagConstraints gbc_btnLoadLog = new GridBagConstraints();
+								gbc_btnLoadLog.insets = new Insets(0, 0, 0, 5);
+								gbc_btnLoadLog.gridx = 5;
+								gbc_btnLoadLog.gridy = 1;
+								pnlSouth.add(btnLoadLog, gbc_btnLoadLog);
+								
+						JButton btnLoadBinLog = new JButton("Load pic");
+						btnLoadBinLog.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							loadBinaryFile();									
+						}
+						});
+							GridBagConstraints gbc_btnLoadBinLog = new GridBagConstraints();
+							gbc_btnLoadBinLog.insets = new Insets(0, 0, 0, 5);
+							gbc_btnLoadBinLog.gridx = 6;
+							gbc_btnLoadBinLog.gridy = 1;
+							pnlSouth.add(btnLoadBinLog, gbc_btnLoadBinLog);
 							
 							
 
@@ -396,5 +410,17 @@ import observer.ModelObserver;
 			    updateLogArea(controller.getCommandLogger().getLog());
 			}
 		
-	
+	     private void loadBinaryFile() {
+
+	    	    JFileChooser fc = new JFileChooser();
+	    	    int option = fc.showOpenDialog(this);
+
+	    	    if (option == JFileChooser.APPROVE_OPTION) {
+	    	        String path = fc.getSelectedFile().getAbsolutePath();
+	    	        LogLoader loader = new LogLoader(controller);
+	    	        loader.loadBinaryFile(path); // učitava celu sliku iz binary fajla
+	    	        updateLogArea(controller.getCommandLogger().getLog());
+	    	        view.repaint();
+	    	    }
+	    	}
 	}
