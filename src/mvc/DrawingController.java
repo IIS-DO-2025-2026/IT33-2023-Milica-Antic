@@ -23,7 +23,8 @@
 	import geometry.Shape;
 	import hexagon.Hexagon;
 	import log.CommandLogger;
-	import strategy.SaveContext;
+import strategy.BinarySave;
+import strategy.SaveContext;
 	import command.AddShapeCommand;
 	import command.Command;
 	import command.RemoveShapeCommand;
@@ -409,6 +410,7 @@
 	        redoStack.clear(); 
 	        model.notifyObservers();
 	        autoSave();
+	        autoSaveBinary();
 
 	    }
 	
@@ -439,6 +441,12 @@
 	        context.save("C:\\Users\\Milica\\Desktop\\log.txt");
 
 	    }
+	    private void autoSaveBinary() {
+	        SaveContext context = new SaveContext();
+	        context.setStrategy(new BinarySave(this));
+	        context.save("C:\\Users\\Milica\\Desktop\\log.txt");
+	    }
+
   public CommandLogger getCommandLogger() {
 	        return logger;
 	    }
@@ -477,5 +485,6 @@
 			public Stack<Command> getRedoStack() {
 				return redoStack;
 			}
-	
+			public DrawingModel getModel() { return model; }
+
 	}

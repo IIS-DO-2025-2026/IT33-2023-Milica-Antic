@@ -1,12 +1,13 @@
 	package mvc;
 	
 	import java.awt.Color;
-	import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.ArrayList;
 	import java.util.List;
 	import observer.ModelObserver;
 	import geometry.Shape;
 
-public class DrawingModel {
+public class DrawingModel implements Serializable{
 	private ArrayList<Shape> listOfShapes = new ArrayList<>();
     private List<ModelObserver> observers = new ArrayList<>();
     private Color activeBorderColor = Color.BLACK;

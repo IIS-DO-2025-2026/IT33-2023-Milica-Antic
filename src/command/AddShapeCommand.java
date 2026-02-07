@@ -1,9 +1,10 @@
 package command;
 
+
 import geometry.Shape;
 import mvc.DrawingModel;
 
-public class AddShapeCommand implements Command {
+public class AddShapeCommand implements Command{
 	private DrawingModel model;
 	private Shape shape;
 	

@@ -2,12 +2,13 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public class Circle extends Shape {
+public class Circle extends Shape implements Serializable {
 	private Point center;
 	private int radius;
-	private Color borderColor;
-	private Color surfaceColor;
+	private transient Color borderColor;
+	private transient Color surfaceColor;
 
 	public Circle() {
 	}

@@ -3,13 +3,14 @@ package geometry;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Donut extends Circle {
+public class Donut extends Circle implements Serializable {
 	private int innerRadius;
-	private Color borderColor;
-	private Color surfaceColor;
+	private transient Color borderColor;
+	private transient Color surfaceColor;
 
 	public Donut() {
 

@@ -2,15 +2,16 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 
-public class Rectangle extends Shape {
+public class Rectangle extends Shape implements Serializable {
 	private Point upperLeftPoint;
 	private int width;
 	private int height;
 	//private boolean selected;
-	private Color borderColor;
-	private Color surfaceColor;
+	private transient Color borderColor;
+	private transient Color surfaceColor;
 
 	public Rectangle() {
 	}

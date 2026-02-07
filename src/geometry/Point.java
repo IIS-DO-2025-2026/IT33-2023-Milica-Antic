@@ -2,13 +2,14 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public class Point extends Shape {
+public class Point extends Shape implements Serializable {
 //property klase point- PRIVATE
 	// podrazumevano vrednosti inr-0,boolean-false;
 	private int x;
 	private int y;
-	private Color borderColor;
+	private transient Color borderColor;
 
 	public Point() {
 	}
