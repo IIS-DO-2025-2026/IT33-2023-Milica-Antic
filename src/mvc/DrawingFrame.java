@@ -43,6 +43,10 @@ import observer.ModelObserver;
 		private JButton btnUndo;
 		private JButton btnRedo;
 		private JTextArea logArea;
+		private JButton btnToBack;
+		private JButton btnToFront ;
+		private JButton btnBringToFront;
+		private JButton btnBringToBack;
 	
 	
 		
@@ -219,9 +223,9 @@ import observer.ModelObserver;
 			JPanel pnlSouth = new JPanel();
 			contentPane.add(pnlSouth, BorderLayout.SOUTH);
 			GridBagLayout gbl_pnlSouth = new GridBagLayout();
-			gbl_pnlSouth.columnWidths = new int[]{0, 0, 0, 0,0,0,0};
+			gbl_pnlSouth.columnWidths = new int[]{0, 0, 0, 0,0,0,0,0,0,0,0};
 			gbl_pnlSouth.rowHeights = new int[]{0, 0, 0};
-			gbl_pnlSouth.columnWeights = new double[]{0.0, 0.0, 0.0,0,0,0,0, Double.MIN_VALUE};
+			gbl_pnlSouth.columnWeights = new double[]{0.0, 0.0, 0.0,0,0,0,0,0,0,0,0, Double.MIN_VALUE};
 			gbl_pnlSouth.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			pnlSouth.setLayout(gbl_pnlSouth);
 	
@@ -326,7 +330,53 @@ import observer.ModelObserver;
 							gbc_btnLoadBinLog.gridy = 1;
 							pnlSouth.add(btnLoadBinLog, gbc_btnLoadBinLog);
 							
+							 btnToBack = new JButton("To Back");
+							btnToBack.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								controller.toBack()		;					}
+							});
+								GridBagConstraints gbc_btnToBack = new GridBagConstraints();
+								gbc_btnToBack.insets = new Insets(0, 0, 0, 5);
+								gbc_btnToBack.gridx = 7;
+								gbc_btnToBack.gridy = 1;
+								pnlSouth.add(btnToBack, gbc_btnToBack);
 							
+								 btnToFront = new JButton("To front");
+								btnToFront.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									
+									controller.toFront();								}
+								});
+									GridBagConstraints gbc_btnToFront = new GridBagConstraints();
+									gbc_btnToFront.insets = new Insets(0, 0, 0, 5);
+									gbc_btnToFront.gridx = 8;
+									gbc_btnToFront.gridy = 1;
+									pnlSouth.add(btnToFront, gbc_btnToFront);
+									
+									 btnBringToFront = new JButton("BringToFront");
+									btnBringToFront.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										
+										controller.bringToFront();									}
+									});
+										GridBagConstraints gbc_btnBringToFront = new GridBagConstraints();
+										gbc_btnBringToFront.insets = new Insets(0, 0, 0, 5);
+										gbc_btnBringToFront.gridx = 9;
+										gbc_btnBringToFront.gridy = 1;
+										pnlSouth.add(btnBringToFront, gbc_btnBringToFront);
+										
+										 btnBringToBack = new JButton("BringToBack");
+										btnBringToBack.addActionListener(new ActionListener() {
+										public void actionPerformed(ActionEvent e) {
+											
+											controller.bringToBack()	;									}
+										});
+											GridBagConstraints gbc_btnBringToBack = new GridBagConstraints();
+											gbc_btnBringToBack.insets = new Insets(0, 0, 0, 5);
+											gbc_btnBringToBack.gridx = 10;
+											gbc_btnBringToBack.gridy = 1;
+											pnlSouth.add(btnBringToBack, gbc_btnBringToBack);
 
 				
 					
@@ -341,6 +391,10 @@ import observer.ModelObserver;
 				    btnSelect.setEnabled(false);
 				    btnUndo.setEnabled(false);
 				    btnRedo.setEnabled(false);
+				    btnToBack.setEnabled(false);
+				    btnToFront.setEnabled(false);
+				    btnBringToFront.setEnabled(false);
+				    btnBringToBack.setEnabled(false);
 			
 			view.setBackground(new Color(255, 255, 255));
 		
@@ -384,6 +438,11 @@ import observer.ModelObserver;
 		    btnSelect.setEnabled(controller. hasShapes());
 		    btnUndo.setEnabled(!controller.getUndoStack().isEmpty());
 		    btnRedo.setEnabled(!controller.getRedoStack().isEmpty());
+		    if(controller.getCount()>=2) {
+		    btnToBack.setEnabled(selectedCount == 1);
+		    btnToFront.setEnabled(selectedCount == 1);
+		    btnBringToFront.setEnabled(selectedCount == 1);
+		    btnBringToBack.setEnabled(selectedCount == 1);}
 		    view.repaint();
 	
 		}

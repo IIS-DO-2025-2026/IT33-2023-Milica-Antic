@@ -7,6 +7,7 @@ import java.io.Serializable;
 public abstract class Shape implements Moveable, Comparable, Serializable {
 	protected boolean selected;
 
+
 	public Shape() {
 	}
 
@@ -42,6 +43,7 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	    }
 	    return color.getRed() + "," + color.getGreen() + "," + color.getBlue();
 	}
+
 
 
 

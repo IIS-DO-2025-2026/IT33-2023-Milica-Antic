@@ -37,15 +37,13 @@ public class Point extends Shape implements Serializable {
 		return distance;
 	}
 
-	public boolean equals(Object point) {// instanceof proverava tip podatka
-		if (point instanceof Point) {
-			if (this.x == ((Point) point).x && this.y == ((Point) point).y
-					&& this.selected == ((Point) point).selected) {
-				return true;
-			}
-			return false;
-		}
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+	    if (obj instanceof Point) {
+	        Point p = (Point) obj;
+	        return this.x == p.x && this.y == p.y;
+	    }
+	    return false;
 	}
 
 	public boolean contains(int x, int y) {

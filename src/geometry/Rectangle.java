@@ -31,14 +31,15 @@ public class Rectangle extends Shape implements Serializable {
 		this.selected = selected;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Rectangle) {
-			Rectangle temporary = (Rectangle) obj;
-			if (this.upperLeftPoint.equals(temporary.upperLeftPoint) && this.width == temporary.width
-					&& this.height == temporary.height && this.selected == temporary.selected)
-				return true;
-		}
-		return false;
+	    if (obj instanceof Rectangle) {
+	        Rectangle temporary = (Rectangle) obj;
+	        return this.upperLeftPoint.equals(temporary.getUpperLeftPoint()) && 
+	               this.width == temporary.getWidth() && 
+	               this.height == temporary.getHeight();
+	    }
+	    return false;
 	}
 
 	public boolean contains(int x, int y) {

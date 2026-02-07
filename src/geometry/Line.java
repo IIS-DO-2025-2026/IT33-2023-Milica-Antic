@@ -30,14 +30,16 @@ public class Line extends Shape implements Serializable{
 		return startPoint.distance(endPoint);
 	}
 
-	public boolean equals(Object obj) {// instanceof proverava tip podatka
-		if (obj instanceof Line) {
-			Line temporary = (Line) obj;
-			if (this.startPoint.equals(temporary.startPoint) && this.endPoint.equals(temporary.endPoint)
-					&& this.selected == temporary.selected)
-				return true;
-		}
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+	    if (obj instanceof Line) {
+	        Line temporary = (Line) obj;
+	        if (this.startPoint.equals(temporary.startPoint) && 
+	            this.endPoint.equals(temporary.endPoint)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 	public boolean contains(int x, int y) {

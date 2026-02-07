@@ -35,13 +35,14 @@ public class Circle extends Shape implements Serializable {
 		return 2 * radius * Math.PI;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Circle) {
-			Circle temporary = (Circle) obj;
-			if (this.center.equals(temporary.center) && this.selected == temporary.selected)
-				return true;
-		}
-		return false;
+	    if (obj instanceof Circle) {
+	        Circle temporary = (Circle) obj;
+	        return this.center.equals(temporary.getCenter()) && 
+	               this.radius == temporary.getRadius();
+	    }
+	    return false;
 	}
 
 	public boolean contains(int x, int y) {

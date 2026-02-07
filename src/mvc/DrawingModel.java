@@ -35,6 +35,24 @@ public class DrawingModel implements Serializable{
         return count;
     }
 	
+	public int indexOf(Shape s) {
+	    return listOfShapes.indexOf(s);
+	}
+
+	public void moveShape(Shape s, int newIndex) {
+	    if (!listOfShapes.contains(s)) return;
+
+	    if (newIndex < 0) newIndex = 0;
+	    if (newIndex >= listOfShapes.size()) newIndex = listOfShapes.size() - 1;
+
+	    listOfShapes.remove(s);
+	    listOfShapes.add(newIndex, s);
+	    notifyObservers();
+	}
+
+	public int getShapeCount() {
+	    return listOfShapes.size();
+	}
 
 	public void addObserver(ModelObserver observer) {
         observers.add(observer);

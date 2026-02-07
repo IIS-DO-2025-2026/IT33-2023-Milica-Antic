@@ -31,15 +31,14 @@ public class HexagonAdapter extends Shape implements Serializable{
 		return hexagon.doesContain(x,y);
 	}
 
-	public  boolean equals(Object obj) {
-		if( obj instanceof HexagonAdapter) {
-			HexagonAdapter temp = (HexagonAdapter) obj;
-            if(hexagon.getX() == temp.hexagon.getX() &&
-            hexagon.getY() == temp.hexagon.getY() && hexagon.getR() == temp.hexagon.getR()
-            && hexagon.isSelected()==temp.isSelected())
-			return true;
-		}
-		return false;
+	public boolean equals(Object obj) {
+	    if (obj instanceof HexagonAdapter) {
+	        HexagonAdapter temp = (HexagonAdapter) obj;
+	        return hexagon.getX() == temp.getHexagon().getX() &&
+	               hexagon.getY() == temp.getHexagon().getY() && 
+	               hexagon.getR() == temp.getHexagon().getR();
+	    }
+	    return false;
 	}
 
 

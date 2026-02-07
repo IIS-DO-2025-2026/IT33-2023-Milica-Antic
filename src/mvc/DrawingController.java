@@ -26,7 +26,8 @@
 import strategy.BinarySave;
 import strategy.SaveContext;
 	import command.AddShapeCommand;
-	import command.Command;
+import command.ChangeZOrderCommand;
+import command.Command;
 	import command.RemoveShapeCommand;
 	import command.UpdateShapeCommand;
 	
@@ -45,7 +46,9 @@ import strategy.SaveContext;
 	        this.frame=frame;
 	    }
 	    
-	    public void drawing(MouseEvent e) {
+
+	
+		public void drawing(MouseEvent e) {
 	        Point point = new Point(e.getX(), e.getY());
 	
 	        switch (frame.getWord()) {
@@ -195,27 +198,46 @@ import strategy.SaveContext;
 	
 	        case "selected": {
 	            Collections.reverse(model.getListOfShapes());
-	            boolean found = false; 
-	            Iterator<Shape> itShape = model.getListOfShapes().iterator();
-	            while (itShape.hasNext()) {
-	                Shape tempShape = itShape.next();
+	            boolean found = false;
+
+	            Iterator<Shape> it = model.getListOfShapes().iterator();
+	            while (it.hasNext()) {
+	                Shape tempShape = it.next();
 	                if (tempShape.contains(e.getX(), e.getY())) {
-	                    tempShape.setSelected(!tempShape.isSelected());
-	                    found = true; 
-	                    break;
+	                    boolean newSelected = !tempShape.isSelected();
+	                    tempShape.setSelected(newSelected);
+	                    if (newSelected) {
+	                        logger.getLog().add("SELECTED;" + tempShape.toString());
+	                    } else {
+	                        logger.getLog().add("UNSELECTED;" + tempShape.toString());
+	                    }
+
+	                    found = true;
+	                    break; 
 	                }
 	            }
+
 	            if (!found) {
-	                for (Shape s : model.getListOfShapes()) {
-	                	s.setSelected(false);
+	                Iterator<Shape> it2 = model.getListOfShapes().iterator();
+	                while (it2.hasNext()) {
+	                    Shape s = it2.next();
+	                    if (s.isSelected()) {
+	                        s.setSelected(false);
+	                        logger.getLog().add("UNSELECTED;" + s.toString());
+	                    }
 	                }
 	            }
+
 	            Collections.reverse(model.getListOfShapes());
 	            model.notifyObservers();
+	            frame.updateLogArea(logger.getLog());
+	            autoSave();
 	        } break;
+
 	        }
 	        frame.getView().repaint();
 	    }
+
 	
 	    public void delete() {
 	        DlgDelete dlgDelete = new DlgDelete();
@@ -420,6 +442,9 @@ import strategy.SaveContext;
 	            Command command = undoStack.pop();
 	            command.unexecute();
 	            redoStack.push(command);
+	            logger.logUndo(command);  
+	            frame.updateLogArea(logger.getLog());
+	            autoSave();
 	            model.notifyObservers(); 
 	        }
 	        
@@ -430,6 +455,9 @@ import strategy.SaveContext;
 	            Command command = redoStack.pop();
 	            command.execute();
 	            undoStack.push(command);
+	            logger.logRedo(command);   
+	            frame.updateLogArea(logger.getLog());
+	            autoSave();
 	            model.notifyObservers(); 
 	        }
 	        
@@ -447,9 +475,50 @@ import strategy.SaveContext;
 	        context.save("C:\\Users\\Milica\\Desktop\\binlog.txt");
 	    }
 
-  public CommandLogger getCommandLogger() {
+	    public CommandLogger getCommandLogger() {
 	        return logger;
 	    }
+	    public void toFront() {
+	        Shape selected = getSelectedShape();
+	        if (selected != null) {
+	            int index = model.indexOf(selected);
+	            if (index < model.getShapeCount() - 1) {
+	                executeCommand(new ChangeZOrderCommand(model, selected, index + 1));
+	            }
+	        }
+	    }
+
+	    public void toBack() {
+	        Shape selected = getSelectedShape();
+	        if (selected != null) {
+	            int index = model.indexOf(selected);
+	            if (index > 0) {
+	                executeCommand(new ChangeZOrderCommand(model, selected, index - 1));
+	            }
+	        }
+	    }
+
+	    public void bringToFront() {
+	        Shape selected = getSelectedShape();
+	        if (selected != null) {
+	            executeCommand(new ChangeZOrderCommand(model, selected, model.getShapeCount() - 1));
+	        }
+	    }
+
+	    public void bringToBack() {
+	        Shape selected = getSelectedShape();
+	        if (selected != null) {
+	            executeCommand(new ChangeZOrderCommand(model, selected, 0));
+	        }
+	    }
+
+	    private Shape getSelectedShape() {
+	        for (Shape s : model.getListOfShapes()) {
+	            if (s.isSelected()) return s;
+	        }
+	        return null;
+	    }
+
 
 
 		public boolean hasShapes()
@@ -486,5 +555,6 @@ import strategy.SaveContext;
 				return redoStack;
 			}
 			public DrawingModel getModel() { return model; }
+			public int getCount() {return model.getShapeCount();}
 
 	}
