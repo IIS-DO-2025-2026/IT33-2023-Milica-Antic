@@ -16,12 +16,15 @@
 	import javax.swing.JColorChooser;
 	import javax.swing.JFrame;
 	import javax.swing.JLabel;
-	import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 	import javax.swing.JScrollPane;
 	import javax.swing.JTextArea;
 	import javax.swing.JToggleButton;
 	import javax.swing.border.EmptyBorder;
-	import observer.ModelObserver;
+
+import log.LogLoader;
+import observer.ModelObserver;
 	
 	public class DrawingFrame extends JFrame implements ModelObserver{
 	
@@ -41,7 +44,7 @@
 		private JTextArea logArea;
 	
 	
-	
+		
 		/**
 		 * Create the frame.
 		 */
@@ -296,6 +299,21 @@
 					gbc_btnRedo.gridy = 1;
 					pnlSouth.add(btnRedo, gbc_btnRedo);
 					
+					 JButton btnLoadLog = new JButton("Load log");
+					 btnLoadLog.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+								    loadLogWithUserConfirmation();
+			
+								}
+							});
+							GridBagConstraints gbc_btnLoadLog = new GridBagConstraints();
+							gbc_btnLoadLog.insets = new Insets(0, 0, 0, 5);
+							gbc_btnLoadLog.gridx = 5;
+							gbc_btnLoadLog.gridy = 1;
+							pnlSouth.add(btnLoadLog, gbc_btnLoadLog);
+							
+							
+
 				
 					
 						 logArea = new JTextArea(15, 20);  
@@ -311,7 +329,8 @@
 				    btnRedo.setEnabled(false);
 			
 			view.setBackground(new Color(255, 255, 255));
-			
+		
+
 		
 	
 			contentPane.add(view, BorderLayout.CENTER);
@@ -337,6 +356,9 @@
 		public void setController(DrawingController controller) {
 			this.controller = controller;
 		}
+		public DrawingController getController() {
+			return controller;
+		}
 		
 		@Override
 		
@@ -358,6 +380,21 @@
 		            logArea.append(line + "\n"); //append mi nadovezuje tekst na vec postojeci
 		        }
 		}
+	     private void loadLogWithUserConfirmation() {
+
+			    LogLoader loader = new LogLoader(controller);
+			    List<String> commands = loader.readLogFile("C:\\Users\\Milica\\Desktop\\textlog.txt");
+
+			    for (String line : commands) {
+			        int option = JOptionPane.showConfirmDialog(this,"Do you want to load this command?\n" + line,"Load Command",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null);
+			        
+			        if (option == JOptionPane.YES_OPTION) {
+			            loader.executeCommandFromLog(line);
+			        }
+			    }
+
+			    updateLogArea(controller.getCommandLogger().getLog());
+			}
 		
 	
 	}

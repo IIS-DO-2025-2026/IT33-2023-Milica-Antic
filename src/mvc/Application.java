@@ -3,6 +3,8 @@ package mvc;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
+import log.LogLoader;
+
 public class Application {
 	/**
 	 * Launch the application.
@@ -17,12 +19,13 @@ public class Application {
 					DrawingController controller=new DrawingController(model,frame);
 					frame.setController(controller);
 					model.addObserver(frame);
-						
+				
 					frame.setTitle("Antic Milica IT33/2023");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setBounds(100, 100, 650, 400);
 					
 					frame.setVisible(true);
+					
 
 				} catch (Exception e) {
 					e.printStackTrace();
